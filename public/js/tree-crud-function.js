@@ -13,6 +13,7 @@ $(document).ready(function () {
     });
 
     $('#product_category_tree').fancytree({
+        extensions: ['edit'],
         source: $.ajax({
             method: 'POST',
             url: window.location.protocol + "//" + window.location.host + "/" + 'product_category/get-trees',
@@ -22,45 +23,39 @@ $(document).ready(function () {
                 return response;
             }
         }),
-        contextMenu: {
-            menu: {
-                "edit": { "name": "Edit", "icon": "edit" },
-                "cut": { "name": "Cut", "icon": "cut" },
-                "copy": { "name": "Copy", "icon": "copy" },
-                "paste": { "name": "Paste", "icon": "paste" },
-                "delete": { "name": "Delete", "icon": "delete", "disabled": true },
-                "sep1": "---------",
-                "quit": { "name": "Quit", "icon": "quit" },
-                "sep2": "---------",
-                "fold1": {
-                    "name": "Sub group",
-                    "items": {
-                        "fold1-key1": { "name": "Foo bar" },
-                        "fold2": {
-                            "name": "Sub group 2",
-                            "items": {
-                                "fold2-key1": { "name": "alpha" },
-                                "fold2-key2": { "name": "bravo" },
-                                "fold2-key3": { "name": "charlie" }
-                            }
-                        },
-                        "fold1-key3": { "name": "delta" }
-                    }
-                },
-                "fold1a": {
-                    "name": "Other group",
-                    "items": {
-                        "fold1a-key1": { "name": "echo" },
-                        "fold1a-key2": { "name": "foxtrot" },
-                        "fold1a-key3": { "name": "golf" }
-                    }
-                }
+
+        edit: {
+            triggerStart: ["f2", "dblclick", "shift+click", "mac+enter"],
+            beforeEdit: function (event, data) {
+                // console.log('now trying to rename the title');
+                // console.log(data);
             },
-            actions: function(node, action, options) {
-                $("#selected-action")
-                    .text("Selected action '" + action + "' on node " + node + ".");
+            edit: function (event, data) {
+                // console.log('now editing title');
+                // console.log(data);
+            },
+            beforeClose: function (event, data) {
+                // Return false to prevent cancel/save (data.input is available)
+                console.log(data);
+                if (data.originalEvent.type === "mousedown") {
+                    // We could prevent the mouse click from generating a blur event
+                    // (which would then again close the editor) and return `false` to keep
+                    // the editor open:
+//                  data.originalEvent.preventDefault();
+//                  return false;
+                    // Or go on with closing the editor, but discard any changes:
+//                  data.save = false;
+                }
             }
         },
+
+        save: function(event, data){
+            console.log('you\'re trying to save the node');
+        },
+        close: function(event, data){
+            console.log('now closing the editor');
+        },
+
         lazyload: function (event, data) {
            var node = data.node;
            data.result = {
@@ -71,12 +66,36 @@ $(document).ready(function () {
            };
         }
     });
+
+    $.contextMenu({
+        selector: "#product_category_tree span.fancytree-title",
+        items: {
+            "add_sub": {name: "Add sub", icon: "add"},
+            "rename": {name: "Rename", icon: "edit"},
+            "sep1": "----",
+            "delete": {name: "Delete", icon: "delete"}
+            // "more": {name: "More", items: {
+            //     "sub1": {name: "Sub 1"},
+            //     "sub1": {name: "Sub 2"}
+            // }}
+        },
+        callback: function(itemKey, opt) {
+            var node = $.ui.fancytree.getNode(opt.$trigger);
+            if(itemKey === 'add_sub') {
+                node.editCreateNode('child', {
+                    title: '',
+                    folder: true
+                });
+            }
+        }
+    });
 });
 
 function setCategoryType(selected) {
     var type = $(selected).data('type');
 
     if(type === 'root') {
+        $('#modal_title').html('Add Category');
         var master_product_id = $(selected).data('product_id');
         $('<input>').attr({
             type: 'hidden',
@@ -93,6 +112,7 @@ function setCategoryType(selected) {
         if(activeNode === null) {
             alert('please select category first');
         } else {
+            $('#modal_title').html('Add Sub Category');
             var id = activeNode.key;
             $('<input>').attr({
                 type: 'hidden',

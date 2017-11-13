@@ -1,14 +1,11 @@
 @extends('home')
-    <style type="text/css">
-        ul {
-            list-style-type: none;
-        }
-    </style>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.2.3/jquery.contextMenu.min.css" />
 @push('styles')
 
 @endpush
 
 @push('scripts')
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.2.3/jquery.contextMenu.min.js"></script>
     <script src="{{ asset('js/tree-crud-function.js') }}" type="text/javascript"></script>
 @endpush
 
@@ -33,15 +30,6 @@
         <div class="text-center">
             <img src="{{ asset($masterProduct->cover_image) }}" width="200" class="" alt="{{ $masterProduct->name }}">
             <h1 class="text-center">{{ $masterProduct->name }}</h1>
-            <button type="button"
-                    class="btn btn-success"
-                    data-toggle="modal"
-                    data-target="#modal_add_sub"
-                    data-product_id="{{ $masterProduct->id }}"
-                    data-type="root"
-                    onclick="setCategoryType(this)">
-                <i class="fa fa-plus-circle"></i> Add Category
-            </button> <br> <br>
             @include('layouts.errors.error_list')
             @if(\Session::has('status'))
                 <div class="alert alert-success alert-dismissible" role="alert">
@@ -56,21 +44,30 @@
         </p>
         <p class="text-justify">
             <b>Category list :</b> <br>
-            <small class="text-muted">*please select category first</small
+            <small class="text-muted">*please select category first</small>
             <br>
         </p>
+        <button type="button"
+                class="btn btn-xs btn-success"
+                data-toggle="modal"
+                data-target="#modal_add_sub"
+                data-product_id="{{ $masterProduct->id }}"
+                data-type="root"
+                onclick="setCategoryType(this)">
+            <i class="ion ion-plus-circled"></i> Add Category
+        </button>
         <button type="button"
                 class="btn btn-xs btn-primary"
                 data-product_id="{{ $masterProduct->id }}"
                 data-type="sub"
                 onclick="setCategoryType(this)">
-            <i class="fa fa-plus" aria-hidden="true"></i> Add
+            <i class="ion ion-network" aria-hidden="true"></i> Add sub category
         </button>
         <button class="btn btn-xs btn-warning">
-            <i class="fa fa-pencil-square" aria-hidden="true"></i> Rename
+            <i class="ion ion-edit" aria-hidden="true"></i> Rename
         </button>
         <button class="btn btn-xs btn-danger">
-            <i class="fa fa-window-close" aria-hidden="true"></i> Remove
+            <i class="ion ion-close-circled" aria-hidden="true"></i> Remove
         </button>
         <div id="product_category_tree"></div>
         <div id="selected-action">Click right mouse button on a node.</div>

@@ -180,4 +180,20 @@ $(document).ready(function () {
             form.submit();
         }
     });
+
+    $('#form_add_category').validate({
+        errorClass: "my-error-class",
+        validClass: "my-valid-class",
+
+        rules: {
+            txt_add_category: 'required'
+        },
+        messages: {
+            txt_add_category: 'please enter category name'
+        },
+
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
 });

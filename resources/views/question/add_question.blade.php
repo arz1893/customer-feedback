@@ -6,7 +6,7 @@
         <li><a href="{{ route('question.index') }}"><i class="fa fa-question-circle"></i> Question </a></li>
         <li class="active">Add Question</li>
     </ol>
-    <h3 style="margin-left: 2.8%;"> Add Question </h3>
+    <h3> Add Question </h3>
 @endsection
 
 @section('main-content')

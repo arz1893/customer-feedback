@@ -65,10 +65,10 @@
     </section>
     <div class="content">
         <div class="row">
-            <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <a href="{{ route('master_product.index') }}">
                     <div class="info-box bg-blue">
-                        <span class="info-box-icon"><i class="fa fa-truck"></i></span>
+                        <span class="info-box-icon"><i class="ion ion-ios-pricetags"></i></span>
 
                         <div class="info-box-content">
                             <span class="info-box-text">Products</span>
@@ -82,10 +82,10 @@
                 </a>
             </div>
             <!-- /.col -->
-            <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                 <a href="{{ route('master_service.index') }}">
                     <div class="info-box bg-teal">
-                        <span class="info-box-icon"><i class="fa fa-trophy"></i></span>
+                        <span class="info-box-icon"><i class="ion ion-ios-paper"></i></span>
 
                         <div class="info-box-content">
                             <span class="info-box-text">Services</span>
