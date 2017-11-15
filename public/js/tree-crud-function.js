@@ -26,34 +26,22 @@ $(document).ready(function () {
 
         edit: {
             triggerStart: ["f2", "dblclick", "shift+click", "mac+enter"],
-            beforeEdit: function (event, data) {
-                // console.log('now trying to rename the title');
-                // console.log(data);
-            },
-            edit: function (event, data) {
-                // console.log('now editing title');
-                // console.log(data);
-            },
-            beforeClose: function (event, data) {
-                // Return false to prevent cancel/save (data.input is available)
-                console.log(data);
-                if (data.originalEvent.type === "mousedown") {
-                    // We could prevent the mouse click from generating a blur event
-                    // (which would then again close the editor) and return `false` to keep
-                    // the editor open:
-//                  data.originalEvent.preventDefault();
-//                  return false;
-                    // Or go on with closing the editor, but discard any changes:
-//                  data.save = false;
-                }
-            }
-        },
 
-        save: function(event, data){
-            console.log('you\'re trying to save the node');
-        },
-        close: function(event, data){
-            console.log('now closing the editor');
+            close: function(event, data){
+                console.log('now closing the editor');
+                console.log(event);
+                console.log(data);
+                $.ajax({
+                    method: 'POST',
+                    url: window.location.protocol + "//" + window.location.host + "/" + 'product_category/add-child-node',
+                    dataType: 'json',
+                    data: {parent_id: data.node.parent.key, name: data.node.title, _token: CSRF_TOKEN},
+                    success: function (response) {
+                        data.node.key = response;
+                    }
+                });
+                console.log(data.node);
+            }
         },
 
         lazyload: function (event, data) {
@@ -84,8 +72,26 @@ $(document).ready(function () {
             if(itemKey === 'add_sub') {
                 node.editCreateNode('child', {
                     title: '',
-                    folder: true
+                    folder: true,
+                    lazy: true
                 });
+            } else if(itemKey === 'delete') {
+                var confirm = window.confirm('Are you sure want to delete this category ?');
+                if(confirm === true) {
+                    $.ajax({
+                        method: 'POST',
+                        url: window.location.protocol + "//" + window.location.host + "/" + 'product_category/delete-node',
+                        dataType: 'json',
+                        data: {node_id: node.key, _token: CSRF_TOKEN},
+                        success: function (response) {
+                            if(response.status === 'success') {
+                                node.remove();
+                            }
+                        }
+                    });
+                }
+            } else if(itemKey === 'rename') {
+                node.editStart();
             }
         }
     });

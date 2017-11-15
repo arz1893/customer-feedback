@@ -38,6 +38,9 @@ Route::post('product_category/update-category', 'MasterData\ProductCategoryContr
 Route::post('product_category/get-childs', 'MasterData\ProductCategoryController@getChilds');
 Route::post('product_category/get-roots', 'MasterData\ProductCategoryController@getRoots');
 Route::post('product_category/get-trees', 'MasterData\ProductCategoryController@getTrees');
+Route::post('product_category/add-child-node', 'MasterData\ProductCategoryController@addChildNode');
+Route::post('product_category/rename-node', 'MasterData\ProductCategoryController@renameNode');
+Route::post('product_category/delete-node', 'MasterData\ProductCategoryController@removeNode');
 /* end of product category route */
 
 /* Master Service Routes */

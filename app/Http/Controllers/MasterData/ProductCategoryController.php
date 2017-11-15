@@ -106,4 +106,33 @@ class ProductCategoryController extends Controller
         }
         return redirect()->back();
     }
+
+    public function addChildNode(Request $request) {
+        if($request->json()) {
+            $parent = ProductCategory::findOrFail($request->parent_id);
+            $child = ProductCategory::create([
+                'name' => $request->name
+            ]);
+            $child->makeChildOf($parent);
+            return response()->json($child->id, 200);
+        }
+        return redirect()->back();
+    }
+
+    public function renameNode(Request $request) {
+        dd($request->all());
+//        if($request->json()) {
+//            dd($request->all());
+//        }
+//        return redirect()->back();
+    }
+
+    public function removeNode(Request $request) {
+        if($request->json()) {
+            $node = ProductCategory::findOrFail($request->node_id);
+            $node->delete();
+            return response()->json(['status' => 'success'], 200);
+        }
+        return redirect()->back();
+    }
 }
