@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 27, 2017 at 12:43 PM
+-- Generation Time: Nov 14, 2017 at 06:20 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 7.1.1
 
@@ -17,10 +17,10 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `sorf7479_customer-feedback`
+-- Database: `customer-feedback`
 --
-CREATE DATABASE IF NOT EXISTS `sorf7479_customer-feedback` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
-USE `sorf7479_customer-feedback`;
+CREATE DATABASE IF NOT EXISTS `customer-feedback` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `customer-feedback`;
 
 -- --------------------------------------------------------
 
@@ -417,11 +417,16 @@ CREATE TABLE `product_categories` (
 --
 
 INSERT INTO `product_categories` (`id`, `parent_id`, `lft`, `rgt`, `depth`, `name`, `master_product_id`, `created_at`, `updated_at`) VALUES
-(1, NULL, 1, 6, 0, 'Taste', '58407f9e-1969-49f1-9bcb-22b98b28ae47', '2017-10-27 02:06:02', '2017-10-27 03:21:45'),
-(2, NULL, 7, 10, 0, 'Variant', '58407f9e-1969-49f1-9bcb-22b98b28ae47', '2017-10-27 02:08:51', '2017-10-27 03:21:45'),
-(4, 1, 2, 5, 1, 'Saltiness', NULL, '2017-10-27 02:23:42', '2017-10-27 03:21:45'),
-(5, 2, 8, 9, 1, 'Suki', NULL, '2017-10-27 03:20:39', '2017-10-27 03:21:45'),
-(6, 4, 3, 4, 2, 'dude it\'s on level 3!', NULL, '2017-10-27 03:21:45', '2017-10-27 03:25:33');
+(1, NULL, 1, 8, 0, 'Test', '58407f9e-1969-49f1-9bcb-22b98b28ae47', '2017-10-29 21:32:48', '2017-11-01 03:06:33'),
+(2, 1, 2, 5, 1, 'Test Level 2', NULL, '2017-10-30 01:40:23', '2017-10-30 01:40:37'),
+(3, 2, 3, 4, 2, 'Test level 3', NULL, '2017-10-30 01:40:36', '2017-10-30 01:40:37'),
+(4, NULL, 9, 20, 0, 'Taste', '58407f9e-1969-49f1-9bcb-22b98b28ae47', '2017-10-30 03:30:26', '2017-11-01 03:08:06'),
+(5, 4, 10, 11, 1, 'Saltiness', NULL, '2017-11-01 02:18:08', '2017-11-01 03:06:33'),
+(6, 4, 12, 19, 1, 'ripeness', NULL, '2017-11-01 02:22:47', '2017-11-01 03:08:06'),
+(7, 1, 6, 7, 1, 'Test level 2 same level', NULL, '2017-11-01 03:06:33', '2017-11-01 03:06:33'),
+(8, 6, 13, 14, 2, 'rare', NULL, '2017-11-01 03:07:43', '2017-11-01 03:07:43'),
+(9, 6, 15, 16, 2, 'medium rare', NULL, '2017-11-01 03:07:53', '2017-11-01 03:07:54'),
+(10, 6, 17, 18, 2, 'well-done', NULL, '2017-11-01 03:08:06', '2017-11-01 03:08:07');
 
 -- --------------------------------------------------------
 
@@ -553,7 +558,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `status`, `tenant_id`, `user_type_id`, `remember_token`, `created_at`, `updated_at`) VALUES
-('32d22cae-b812-3468-abfb-414ccb247e2d', 'Sunwell System', 'sunwell.system@gmail.com', '$2y$10$mha.H39L0HLljDOfKZlOe.C2wpRzgYBpkYv4gzi9ixxnTkzb5uTn6', NULL, 1, '32d22cae-b812-3468-abfb-414ccb247e2d', 1, '8bD3L64ayBCGzeokIDyQDMsYhNvXaC4bxA0ozA5bzFv1WyBwKliKFPCcrGN6', '2017-09-19 21:26:51', '2017-09-19 21:26:51');
+('32d22cae-b812-3468-abfb-414ccb247e2d', 'Sunwell System', 'sunwell.system@gmail.com', '$2y$10$mha.H39L0HLljDOfKZlOe.C2wpRzgYBpkYv4gzi9ixxnTkzb5uTn6', NULL, 1, '32d22cae-b812-3468-abfb-414ccb247e2d', 1, '4oPnrPqhcztwNxbufDU3htihUGeEh4gjW5xcBWr3MymxJpbgDbIBWrwjpYkt', '2017-09-19 21:26:51', '2017-09-19 21:26:51');
 
 --
 -- Indexes for dumped tables
@@ -718,7 +723,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `product_categories`
 --
 ALTER TABLE `product_categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `questions`
 --
