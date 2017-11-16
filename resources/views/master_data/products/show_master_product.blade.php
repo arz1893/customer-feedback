@@ -44,7 +44,11 @@
         </p>
         <p class="text-justify">
             <b>Category list :</b> <br>
-            <small class="text-muted">*please select category first</small>
+            @if($hasCategory == true)
+                <small class="text-muted">*please select category first</small>
+            @else
+                <small class="text-muted">*please add category first</small>
+            @endif
             <br>
         </p>
         <button type="button"
@@ -63,14 +67,25 @@
                 onclick="setCategoryType(this)">
             <i class="ion ion-network" aria-hidden="true"></i> Add sub category
         </button>
-        <button class="btn btn-xs btn-warning">
+        <button type="button"
+                class="btn btn-xs btn-warning"
+                data-product-id="{{ $masterProduct->id }}"
+                data-type="edit"
+                onclick="setCategoryType(this)">
             <i class="ion ion-edit" aria-hidden="true"></i> Rename
         </button>
-        <button class="btn btn-xs btn-danger">
+        <button type="button"
+                class="btn btn-xs btn-danger"
+                data-product-id="{{ $masterProduct->id }}"
+                data-type="delete"
+                onclick="setCategoryType(this)">
             <i class="ion ion-close-circled" aria-hidden="true"></i> Remove
         </button>
         <div id="product_category_tree"></div>
-        <div id="selected-action">Click right mouse button on a node.</div>
+
+        @if($hasCategory == true)
+            <div id="selected-action">Click right mouse button on a node.</div>
+        @endif
     </div>
 
     @include('layouts.master_data.product_category.modal_crud_product_category')

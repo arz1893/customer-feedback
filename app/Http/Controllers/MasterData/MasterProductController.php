@@ -66,7 +66,11 @@ class MasterProductController extends Controller
 
     public function show(Request $request, MasterProduct $masterProduct) {
         $productCategories = ProductCategory::where('master_product_id', $masterProduct->id)->where('parent_id', null)->get();
-        return view('master_data.products.show_master_product', compact('masterProduct', 'productCategories'));
+        $hasCategory = false;
+        if(count($productCategories) > 0) {
+            $hasCategory = true;
+        }
+        return view('master_data.products.show_master_product', compact('masterProduct', 'hasCategory'));
     }
 
     public function deleteProduct(Request $request) {

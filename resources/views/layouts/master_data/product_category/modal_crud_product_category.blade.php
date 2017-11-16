@@ -40,6 +40,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            {{ Form::open(['action' => 'MasterData\ProductCategoryController@updateProductCategory', 'id' => 'form_edit_category']) }}
             <div class="modal-body">
                 {{ Form::label('name', 'Enter Category Name', ['class' => 'control-label', 'id' => 'lbl_edit_category']) }}
                 {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Category Name', 'id' => 'txt_edit_category']) }}
@@ -54,6 +55,7 @@
                     Update Category
                 </button>
             </div>
+            {{ Form::close() }}
         </div>
     </div>
 </div>
@@ -76,6 +78,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
+            {{ Form::open(['action' => 'MasterData\ProductCategoryController@deleteProductCategory', 'id' => 'form_delete_category']) }}
             <div class="modal-body">
                 Are you sure want to delete this category ?
             </div>
@@ -84,11 +87,12 @@
                 <button data-id=""
                         id="btn_delete_category"
                         type="submit"
-                        class="btn btn-primary"
+                        class="btn btn-danger"
                         onclick="deleteCategory(this)">
                     Delete
                 </button>
             </div>
+            {{ Form::close() }}
         </div>
     </div>
 </div>

@@ -196,4 +196,20 @@ $(document).ready(function () {
             form.submit();
         }
     });
+
+    $('#form_edit_category').validate({
+        errorClass: "my-error-class",
+        validClass: "my-valid-class",
+
+        rules: {
+            txt_edit_category: 'required'
+        },
+        messages: {
+            txt_edit_category: 'please enter category name'
+        },
+
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
 });

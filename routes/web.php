@@ -32,15 +32,15 @@ Route::post('master_product/delete-master-product', 'MasterData\MasterProductCon
 
 /* Product Category Routes */
 Route::resource('product_category', 'MasterData\ProductCategoryController');
-Route::post('product_category/delete-category', 'MasterData\ProductCategoryController@deleteCategory');
 Route::post('product_category/get-category', 'MasterData\ProductCategoryController@getProductCategory');
 Route::post('product_category/update-category', 'MasterData\ProductCategoryController@updateProductCategory');
 Route::post('product_category/get-childs', 'MasterData\ProductCategoryController@getChilds');
-Route::post('product_category/get-roots', 'MasterData\ProductCategoryController@getRoots');
 Route::post('product_category/get-trees', 'MasterData\ProductCategoryController@getTrees');
+Route::post('product_category/get-category', 'MasterData\ProductCategoryController@getCategory');
 Route::post('product_category/add-child-node', 'MasterData\ProductCategoryController@addChildNode');
 Route::post('product_category/rename-node', 'MasterData\ProductCategoryController@renameNode');
 Route::post('product_category/delete-node', 'MasterData\ProductCategoryController@removeNode');
+Route::post('product_category/delete-product-category', 'MasterData\ProductCategoryController@deleteProductCategory');
 /* end of product category route */
 
 /* Master Service Routes */
