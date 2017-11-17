@@ -1,5 +1,14 @@
 @extends('home')
 
+@push('styles')
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.2.3/jquery.contextMenu.min.css" />
+@endpush
+
+@push('scripts')
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.2.3/jquery.contextMenu.min.js"></script>
+    <script src="{{ asset('js/tree-crud/tree-crud-service-function.js') }}" type="text/javascript"></script>
+@endpush
+
 @section('content-header')
     <h1 class="text-muted">Service Detail</h1>
     <ol class="breadcrumb">
@@ -12,6 +21,10 @@
 
 @section('main-content')
 
+    <div class="row">
+        {{ Form::hidden('master_service_id', $masterService->id, ['id' => 'master_service_id']) }}
+    </div>
+
     <div class="span8">
         <div class="text-center">
             @if($masterService->cover_image == null)
@@ -21,8 +34,68 @@
             @endif
         </div>
         <h1>{{ $masterService->name }}</h1>
-        <p>{{ $masterService->description }}</p>
+
+        @include('layouts.errors.error_list')
+        @if(\Session::has('status'))
+            <div class="alert alert-success alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <strong>Info!</strong> {{ \Session::get('status') }}
+            </div>
+        @endif
+
+        <p class="text-justify">
+            <b>Description :</b> <br>
+            {{ $masterService->description }}
+        </p>
+        <p class="text-justify">
+            <b>Category list :</b> <br>
+            @if($hasCategory == true)
+                <small class="text-muted">*please select category first</small>
+            @else
+                <small class="text-muted">*please add category first</small>
+            @endif
+            <br>
+        </p>
+
+        <button type="button"
+                class="btn btn-xs btn-success"
+                data-toggle="modal"
+                data-target="#modal_add_service_category"
+                data-service_id="{{ $masterService->id }}"
+                data-type="root"
+                onclick="setServiceCategoryType(this)">
+            <i class="ion ion-plus-circled"></i> Add category
+        </button>
+        <button type="button"
+                class="btn btn-xs btn-primary"
+                data-service_id="{{ $masterService->id }}"
+                data-type="sub"
+                onclick="setServiceCategoryType(this)">
+            <i class="ion ion-network"></i> Add sub category
+        </button>
+        <button type="button"
+                class="btn btn-xs btn-warning"
+                data-service_id="{{ $masterService->id }}"
+                data-type="rename"
+                onclick="setServiceCategoryType(this)">
+            <i class="ion ion-edit"></i> Rename
+        </button>
+        <button type="button"
+                class="btn btn-xs btn-danger"
+                data-service_id="{{ $masterService->id }}"
+                data-type="delete"
+                onclick="setServiceCategoryType(this)">
+            <i class="ion ion-close-circled">Remove</i>
+        </button>
+
+        <div id="service_category_tree"></div>
+
+        @if($hasCategory == true)
+            <div id="selected-action">Click right mouse button on a node.</div>
+        @endif
     </div>
+
+    @include('layouts.master_data.service_category.modal_crud_service_category')
 
     <hr>
 

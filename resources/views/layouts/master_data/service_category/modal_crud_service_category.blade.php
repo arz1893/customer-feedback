@@ -1,20 +1,20 @@
 <!-- Modal -->
 <div class="modal fade"
-     id="modal_add_product_category"
+     id="modal_add_service_category"
      tabindex="-1"
      role="dialog"
-     aria-labelledby="modal_title">
+     aria-labelledby="modal_service">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title text-primary" id="modal_title_product_category">Add Category</h3>
+                <h3 class="modal-title text-primary" id="modal_title_service_category">Add Category</h3>
             </div>
-            {{ Form::open(['action' => 'MasterData\ProductCategoryController@store', 'id' => 'form_add_product_category']) }}
+            {{ Form::open(['action' => 'MasterData\ServiceCategoryController@store', 'id' => 'form_add_service_category']) }}
             <div class="modal-body">
                 <div class="form-group">
-                    {{ Form::label('name', 'Name', ['class' => 'control-label', 'id' => 'lbl_add_product_category']) }}
-                    {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Enter category name', 'id' => 'txt_add_product_category']) }}
+                    {{ Form::label('name', 'Name', ['class' => 'control-label', 'id' => 'lbl_add_service_category']) }}
+                    {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Enter category name', 'id' => 'txt_add_service_category']) }}
                 </div>
             </div>
             <div class="modal-footer">
@@ -29,7 +29,7 @@
 
 <!-- Modal -->
 <div class="modal fade"
-     id="modal_edit_product_category"
+     id="modal_edit_service_category"
      tabindex="-1"
      role="dialog"
      aria-labelledby="modal_edit_label"
@@ -44,15 +44,15 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            {{ Form::open(['action' => 'MasterData\ProductCategoryController@updateProductCategory', 'id' => 'form_edit_product_category']) }}
+            {{ Form::open(['action' => 'MasterData\ServiceCategoryController@renameServiceCategory', 'id' => 'form_edit_service_category']) }}
             <div class="modal-body">
-                {{ Form::label('name', 'Enter Category Name', ['class' => 'control-label', 'id' => 'lbl_edit_product_category']) }}
-                {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Category Name', 'id' => 'txt_edit_product_category']) }}
+                {{ Form::label('name', 'Enter Category Name', ['class' => 'control-label', 'id' => 'lbl_edit_service_category']) }}
+                {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Category Name', 'id' => 'txt_edit_service_category']) }}
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button data-id=""
-                        id="btn_update_category"
+                        id="btn_service_category"
                         type="submit"
                         class="btn btn-primary">
                     Update Category
@@ -66,7 +66,7 @@
 
 <!-- Modal -->
 <div class="modal fade"
-     id="modal_delete_product_category"
+     id="modal_delete_service_category"
      tabindex="-1"
      role="dialog"
      aria-labelledby="modal_delete_label"
@@ -81,7 +81,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            {{ Form::open(['action' => 'MasterData\ProductCategoryController@deleteProductCategory', 'id' => 'form_delete_product_category']) }}
+            {{ Form::open(['action' => 'MasterData\ServiceCategoryController@deleteServiceCategory', 'id' => 'form_delete_service_category']) }}
             <div class="modal-body">
                 Are you sure want to delete this category ?
             </div>

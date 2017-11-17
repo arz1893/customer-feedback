@@ -5,6 +5,7 @@ namespace App\Http\Controllers\MasterData;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MasterServiceRequest;
 use App\MasterService;
+use App\ServiceCategory;
 use App\Tenant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,7 +56,12 @@ class MasterServiceController extends Controller
     }
 
     public function show(MasterService $masterService) {
-        return view('master_data.services.show_master_service', compact('masterService'));
+        $serviceCategories = ServiceCategory::where('master_service_id', $masterService->id)->where('parent_id', null)->get();
+        $hasCategory = false;
+        if(count($serviceCategories) > 0) {
+            $hasCategory = true;
+        }
+        return view('master_data.services.show_master_service', compact('masterService', 'hasCategory'));
     }
 
     public function edit(MasterService $masterService) {

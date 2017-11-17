@@ -1,24 +1,14 @@
 $(document).ready(function () {
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-    var master_product_id = $('#master_product_id').val();
+    var master_service_id = $('#master_service_id').val();
 
-    $.ajax({
-        method: 'POST',
-        url: window.location.protocol + "//" + window.location.host + "/" + 'product_category/get-trees',
-        dataType: 'json',
-        data: {master_product_id: master_product_id, _token: CSRF_TOKEN},
-        success: function (response) {
-            console.log(response);
-        }
-    });
-
-    $('#product_category_tree').fancytree({
+    $('#service_category_tree').fancytree({
         extensions: ['edit'],
         source: $.ajax({
             method: 'POST',
-            url: window.location.protocol + "//" + window.location.host + "/" + 'product_category/get-trees',
+            url: window.location.protocol + "//" + window.location.host + "/" + 'service_category/get-trees',
             dataType: 'json',
-            data: {master_product_id: master_product_id, _token: CSRF_TOKEN},
+            data: {master_service_id: master_service_id, _token: CSRF_TOKEN},
             success: function (response) {
                 return response;
             }
@@ -33,7 +23,7 @@ $(document).ready(function () {
                     if(nodeKey.indexOf('_') !== -1) {
                         $.ajax({
                             method: 'POST',
-                            url: window.location.protocol + "//" + window.location.host + "/" + 'product_category/add-child-node',
+                            url: window.location.protocol + "//" + window.location.host + "/" + 'service_category/add-child-node',
                             dataType: 'json',
                             data: {parent_id: data.node.parent.key, name: data.node.title, _token: CSRF_TOKEN},
                             success: function (response) {
@@ -43,7 +33,7 @@ $(document).ready(function () {
                     } else if(nodeKey.indexOf('_') === -1) {
                         $.ajax({
                             method: 'POST',
-                            url: window.location.protocol + "//" + window.location.host + "/" + 'product_category/rename-node',
+                            url: window.location.protocol + "//" + window.location.host + "/" + 'service_category/rename-node',
                             dataType: 'json',
                             data: {node_key: data.node.key, name: data.node.title, _token: CSRF_TOKEN},
                             success: function (response) {
@@ -57,18 +47,18 @@ $(document).ready(function () {
         },
 
         lazyload: function (event, data) {
-           var node = data.node;
-           data.result = {
+            var node = data.node;
+            data.result = {
                 method: 'POST',
-                url: window.location.protocol + "//" + window.location.host + "/" + 'product_category/get-childs',
+                url: window.location.protocol + "//" + window.location.host + "/" + 'service_category/get-childs',
                 data: {mode: 'children', parent_id: node.key, _token: CSRF_TOKEN},
                 cache: false
-           };
+            };
         }
     });
 
     $.contextMenu({
-        selector: "#product_category_tree span.fancytree-title",
+        selector: "#service_category_tree span.fancytree-title",
         items: {
             "add_sub": {name: "Add sub", icon: "add"},
             "rename": {name: "Rename", icon: "edit"},
@@ -92,7 +82,7 @@ $(document).ready(function () {
                 if(confirm === true) {
                     $.ajax({
                         method: 'POST',
-                        url: window.location.protocol + "//" + window.location.host + "/" + 'product_category/delete-node',
+                        url: window.location.protocol + "//" + window.location.host + "/" + 'service_category/delete-node',
                         dataType: 'json',
                         data: {node_id: node.key, _token: CSRF_TOKEN},
                         success: function (response) {
@@ -109,99 +99,100 @@ $(document).ready(function () {
     });
 });
 
-function setCategoryType(selected) {
+function setServiceCategoryType(selected) {
     var type = $(selected).data('type');
+    var master_service_id = $('#master_service_id').val();
 
     if(type === 'root') {
-        $('#modal_title').html('Add Category');
-        var master_product_id = $(selected).data('product_id');
+        $('#modal_title_service_category').html('Add Category');
         $('<input>').attr({
             type: 'hidden',
             name: 'category_type',
             value: 'root'
-        }).appendTo('#form_add_category');
+        }).appendTo('#form_add_service_category');
         $('<input>').attr({
             type: 'hidden',
-            name: 'master_product_id',
-            value: master_product_id
-        }).appendTo('#form_add_category');
+            name: 'master_service_id',
+            value: master_service_id
+        }).appendTo('#form_add_service_category');
     } else if(type === 'sub') {
-        var activeNode = $('#product_category_tree').fancytree('getActiveNode');
+        var activeNode = $('#service_category_tree').fancytree('getActiveNode');
         if(activeNode === null) {
             alert('please select category first');
         } else {
-            $('#modal_title').html('Add Sub Category');
-            var master_product_id = $(selected).data('product_id');
-            var parent_id = activeNode.key;
-            $('<input>').attr({
-                type: 'hidden',
-                name: 'master_product_id',
-                value: master_product_id
-            }).appendTo('#form_add_category');
+            $('#modal_title_service_category').html('Add Sub Category');
             $('<input>').attr({
                 type: 'hidden',
                 name: 'category_type',
                 value: 'sub'
-            }).appendTo('#form_add_category');
+            }).appendTo('#form_add_service_category');
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'master_service_id',
+                value: master_service_id
+            }).appendTo('#form_add_service_category');
             $('<input>').attr({
                 type: 'hidden',
                 name: 'parent_id',
-                value: parent_id
-            }).appendTo('#form_add_category');
-            $('#modal_add_sub').modal('show');
+                value: activeNode.key
+            }).appendTo('#form_add_service_category');
+            $('#modal_add_service_category').modal('show');
         }
-    } else if(type === 'edit') {
-        var activeNode = $('#product_category_tree').fancytree('getActiveNode');
+    } else if(type === 'rename') {
+        var activeNode = $('#service_category_tree').fancytree('getActiveNode');
         if(activeNode === null) {
             alert('please select category first');
         } else {
             var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $.ajax({
                 method: 'POST',
-                url: window.location.protocol + "//" + window.location.host + "/" + 'product_category/get-category',
+                url: window.location.protocol + "//" + window.location.host + "/" + 'service_category/get-category',
                 dataType: 'json',
-                data: {node_id: activeNode.key, _token: CSRF_TOKEN},
-                success: function (response) {
-                    $('#txt_edit_category').val(response.category.name);
+                data: { node_key: activeNode.key, _token: CSRF_TOKEN },
+                success: function (category) {
+                    $('#txt_edit_service_category').val(category.name);
                 }
             });
 
-            var node_key = activeNode.key;
-            $('<input>').attr({
-                type: 'hidden',
-                name: 'node_key',
-                value: node_key
-            }).appendTo('#form_edit_category');
             $('<input>').attr({
                 type: 'hidden',
                 name: 'category_type',
                 value: 'edit'
-            }).appendTo('#form_edit_category');
-            $('#modal_edit_category').modal('show');
-        }
-    } else if(type === 'delete') {
-        var activeNode = $('#product_category_tree').fancytree('getActiveNode');
-        var master_product_id = $(selected).data('product-id');
-        if(activeNode === null) {
-            alert('please select category first');
-        } else {
-            var node_key = activeNode.key;
+            }).appendTo('#form_edit_service_category');
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'master_service_id',
+                value: master_service_id
+            }).appendTo('#form_edit_service_category');
             $('<input>').attr({
                 type: 'hidden',
                 name: 'node_key',
-                value: node_key
-            }).appendTo('#form_delete_category');
-            $('<input>').attr({
-                type: 'hidden',
-                name: 'master_product_id',
-                value: master_product_id
-            }).appendTo('#form_delete_category');
+                value: activeNode.key
+            }).appendTo('#form_edit_service_category');
+            $('#modal_edit_service_category').modal('show');
+        }
+    } else if(type === 'delete') {
+        var activeNode = $('#service_category_tree').fancytree('getActiveNode');
+        if(activeNode === null) {
+            alert('please select category first');
+        } else {
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
             $('<input>').attr({
                 type: 'hidden',
                 name: 'category_type',
                 value: 'delete'
-            }).appendTo('#form_delete_category');
-            $('#modal_delete_category').modal('show');
+            }).appendTo('#form_delete_service_category');
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'master_service_id',
+                value: master_service_id
+            }).appendTo('#form_delete_service_category');
+            $('<input>').attr({
+                type: 'hidden',
+                name: 'node_key',
+                value: activeNode.key
+            }).appendTo('#form_delete_service_category');
+            $('#modal_delete_service_category').modal('show');
         }
     }
 }

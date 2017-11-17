@@ -181,15 +181,15 @@ $(document).ready(function () {
         }
     });
 
-    $('#form_add_category').validate({
+    $('#form_add_product_category').validate({
         errorClass: "my-error-class",
         validClass: "my-valid-class",
 
         rules: {
-            txt_add_category: 'required'
+            txt_add_product_category: 'required'
         },
         messages: {
-            txt_add_category: 'please enter category name'
+            txt_add_product_category: 'please enter category name'
         },
 
         submitHandler: function (form) {
@@ -197,15 +197,15 @@ $(document).ready(function () {
         }
     });
 
-    $('#form_edit_category').validate({
+    $('#form_edit_product_category').validate({
         errorClass: "my-error-class",
         validClass: "my-valid-class",
 
         rules: {
-            txt_edit_category: 'required'
+            txt_edit_product_category: 'required'
         },
         messages: {
-            txt_edit_category: 'please enter category name'
+            txt_edit_product_category: 'please enter category name'
         },
 
         submitHandler: function (form) {

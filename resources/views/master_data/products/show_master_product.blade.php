@@ -1,12 +1,11 @@
 @extends('home')
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.2.3/jquery.contextMenu.min.css" />
 @push('styles')
-
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.2.3/jquery.contextMenu.min.css" />
 @endpush
 
 @push('scripts')
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.2.3/jquery.contextMenu.min.js"></script>
-    <script src="{{ asset('js/tree-crud-function.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/tree-crud/tree-crud-product-function.js') }}" type="text/javascript"></script>
 @endpush
 
 @section('content-header')
@@ -54,33 +53,34 @@
         <button type="button"
                 class="btn btn-xs btn-success"
                 data-toggle="modal"
-                data-target="#modal_add_sub"
+                data-target="#modal_add_product_category"
                 data-product_id="{{ $masterProduct->id }}"
                 data-type="root"
-                onclick="setCategoryType(this)">
+                onclick="setProductCategoryType(this)">
             <i class="ion ion-plus-circled"></i> Add Category
         </button>
         <button type="button"
                 class="btn btn-xs btn-primary"
                 data-product_id="{{ $masterProduct->id }}"
                 data-type="sub"
-                onclick="setCategoryType(this)">
+                onclick="setProductCategoryType(this)">
             <i class="ion ion-network" aria-hidden="true"></i> Add sub category
         </button>
         <button type="button"
                 class="btn btn-xs btn-warning"
                 data-product-id="{{ $masterProduct->id }}"
                 data-type="edit"
-                onclick="setCategoryType(this)">
+                onclick="setProductCategoryType(this)">
             <i class="ion ion-edit" aria-hidden="true"></i> Rename
         </button>
         <button type="button"
                 class="btn btn-xs btn-danger"
                 data-product-id="{{ $masterProduct->id }}"
                 data-type="delete"
-                onclick="setCategoryType(this)">
+                onclick="setProductCategoryType(this)">
             <i class="ion ion-close-circled" aria-hidden="true"></i> Remove
         </button>
+
         <div id="product_category_tree"></div>
 
         @if($hasCategory == true)

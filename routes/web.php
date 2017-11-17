@@ -31,7 +31,6 @@ Route::post('master_product/delete-master-product', 'MasterData\MasterProductCon
 /* end of master product route */
 
 /* Product Category Routes */
-Route::resource('product_category', 'MasterData\ProductCategoryController');
 Route::post('product_category/get-category', 'MasterData\ProductCategoryController@getProductCategory');
 Route::post('product_category/update-category', 'MasterData\ProductCategoryController@updateProductCategory');
 Route::post('product_category/get-childs', 'MasterData\ProductCategoryController@getChilds');
@@ -41,12 +40,25 @@ Route::post('product_category/add-child-node', 'MasterData\ProductCategoryContro
 Route::post('product_category/rename-node', 'MasterData\ProductCategoryController@renameNode');
 Route::post('product_category/delete-node', 'MasterData\ProductCategoryController@removeNode');
 Route::post('product_category/delete-product-category', 'MasterData\ProductCategoryController@deleteProductCategory');
+Route::resource('product_category', 'MasterData\ProductCategoryController');
 /* end of product category route */
 
 /* Master Service Routes */
 Route::resource('master_service', 'MasterData\MasterServiceController');
 Route::post('master_service/delete-master-service', 'MasterData\MasterServiceController@deleteService');
 /* end of master service route */
+
+/* Service Category Routes */
+Route::post('service_category/get-trees', 'MasterData\ServiceCategoryController@getTrees');
+Route::post('service_category/get-childs', 'MasterData\ServiceCategoryController@getChilds');
+Route::post('service_category/get-category', 'MasterData\ServiceCategoryController@getCategory');
+Route::post('service_category/rename-category', 'MasterData\ServiceCategoryController@renameServiceCategory');
+Route::post('service_category/delete-category', 'MasterData\ServiceCategoryController@deleteServiceCategory');
+Route::post('service_category/add-child-node', 'MasterData\ServiceCategoryController@addChildNode');
+Route::post('service_category/rename-node', 'MasterData\ServiceCategoryController@renameNode');
+Route::post('service_category/delete-node', 'MasterData\ServiceCategoryController@deleteNode');
+Route::resource('service_category', 'MasterData\ServiceCategoryController');
+/* end of service category route */
 
 /* Faq Routes */
 Route::resource('faq', 'Faq\FaqController');
