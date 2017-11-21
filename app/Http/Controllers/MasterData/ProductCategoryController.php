@@ -66,9 +66,9 @@ class ProductCategoryController extends Controller
         return redirect()->back()->with('status', 'Category has been deleted');
     }
 
-    public function getProductCategory(Request $request){
+    public function getCategory(Request $request){
         if($request->json()) {
-            $productCategory = ProductCategory::findOrFail($request->id);
+            $productCategory = ProductCategory::findOrFail($request->node_id);
             return response()->json($productCategory, 200);
         }
         return redirect()->back();

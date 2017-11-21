@@ -93,7 +93,7 @@
                     </a>
                 </li>
                 <li class="">
-                    <a href="#">
+                    <a href="{{ route('user.index') }}">
                         <i class="fa fa-user-circle-o"></i>
                         <span>Manage Users</span>
                     </a>

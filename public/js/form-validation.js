@@ -212,4 +212,62 @@ $(document).ready(function () {
             form.submit();
         }
     });
+
+    $('#form_add_user').validate({
+        errorClass: "my-error-class",
+        validClass: "my-valid-class",
+
+        rules: {
+            name: 'required',
+            email: {
+                required: true,
+                email: true
+            },
+            password: {
+                required: true,
+                minlength: 4
+            },
+            password_confirmation: {
+                equalTo: '#password'
+            },
+            user_type_id: 'required'
+        },
+        messages: {
+            name: 'please enter user\'s name',
+            email: {
+                required: 'please enter email address',
+                email: 'email format is invalid'
+            },
+            password: {
+                required: 'please enter user\'s password',
+                minlength: jQuery.validator.format("please, at least {0} characters are necessary")
+            },
+            password_confirmation: {
+                equalTo: 'your password didn\'t match'
+            },
+            user_type_id: 'please select user type'
+        },
+
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+
+    $('#form_edit_user').validate({
+        errorClass: "my-error-class",
+        validClass: "my-valid-class",
+
+        rules: {
+            name: 'required',
+            user_type_id: 'required'
+        },
+        messages: {
+            name: 'please enter user\'s name',
+            user_type_id: 'please select user type'
+        },
+
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
 });

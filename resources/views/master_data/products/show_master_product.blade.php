@@ -51,7 +51,7 @@
             <br>
         </p>
         <button type="button"
-                class="btn btn-xs btn-success"
+                class="btn btn-success"
                 data-toggle="modal"
                 data-target="#modal_add_product_category"
                 data-product_id="{{ $masterProduct->id }}"
@@ -60,28 +60,29 @@
             <i class="ion ion-plus-circled"></i> Add Category
         </button>
         <button type="button"
-                class="btn btn-xs btn-primary"
+                class="btn btn-primary"
                 data-product_id="{{ $masterProduct->id }}"
                 data-type="sub"
                 onclick="setProductCategoryType(this)">
             <i class="ion ion-network" aria-hidden="true"></i> Add sub category
         </button>
+
+        <div id="product_category_tree" class="fancytree-colorize-hover fancytree-fade-expander"></div>
+
         <button type="button"
-                class="btn btn-xs btn-warning"
+                class="btn btn-warning"
                 data-product-id="{{ $masterProduct->id }}"
                 data-type="edit"
                 onclick="setProductCategoryType(this)">
             <i class="ion ion-edit" aria-hidden="true"></i> Rename
         </button>
         <button type="button"
-                class="btn btn-xs btn-danger"
+                class="btn btn-danger"
                 data-product-id="{{ $masterProduct->id }}"
                 data-type="delete"
                 onclick="setProductCategoryType(this)">
             <i class="ion ion-close-circled" aria-hidden="true"></i> Remove
         </button>
-
-        <div id="product_category_tree"></div>
 
         @if($hasCategory == true)
             <div id="selected-action">Click right mouse button on a node.</div>

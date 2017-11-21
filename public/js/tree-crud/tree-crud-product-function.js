@@ -4,6 +4,12 @@ $(document).ready(function () {
 
     $('#product_category_tree').fancytree({
         extensions: ['edit'],
+        wide: {
+            iconWidth: "2em",       // Adjust this if @fancy-icon-width != "16px"
+            iconSpacing: "1em",   // Adjust this if @fancy-icon-spacing != "3px"
+            labelSpacing: "0.6em",  // Adjust this if padding between icon and label != "3px"
+            levelOfs: "2.5em"       // Adjust this if ul padding != "16px"
+        },
         source: $.ajax({
             method: 'POST',
             url: window.location.protocol + "//" + window.location.host + "/" + 'product_category/get-trees',
@@ -151,8 +157,8 @@ function setProductCategoryType(selected) {
                 url: window.location.protocol + "//" + window.location.host + "/" + 'product_category/get-category',
                 dataType: 'json',
                 data: {node_id: activeNode.key, _token: CSRF_TOKEN},
-                success: function (response) {
-                    $('#txt_edit_product_category').val(response.category.name);
+                success: function (category) {
+                    $('#txt_edit_product_category').val(category.name);
                 }
             });
 

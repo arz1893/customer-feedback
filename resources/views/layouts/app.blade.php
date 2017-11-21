@@ -24,7 +24,9 @@
          folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('css/admin-lte/_all-skins.css') }}">
     <!-- Data Table -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('css/datatables/datatables.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/responsive.dataTables.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap.css') }}">
     <!-- Bootstrap toggle button -->
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <!-- Bootstrap Select -->
@@ -266,13 +268,15 @@
     <script src="{{ asset('js/admin-lte/adminlte.min.js') }}" type="text/javascript"></script>
     <!-- Vue JS -->
     <script src="{{ asset('js/vue/vue.min.js') }}" type="text/javascript"></script>
+    <!-- Data Table -->
+    <script src="{{ asset('js/datatables/datatables.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/datatables/dataTables.responsive.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/datatables/responsive.bootstrap.js') }}" type="text/javascript"></script>
     <!-- Jquery validation -->
     <script src="{{ asset('js/jquery-validate/jquery.validate.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/functions.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/form-validation.js') }}" type="text/javascript"></script>
-    <!-- Data Table -->
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js" type="text/javascript"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
     <!-- Bootstrap toggle button -->
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <!-- Bootstrap Select -->

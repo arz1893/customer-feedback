@@ -1,4 +1,4 @@
-$(document).ready(function () {
+$(document).ready(function () {form_add_user
     $('.popover-dismiss').popover({
         trigger: 'focus'
     });
@@ -39,6 +39,10 @@ $(document).ready(function () {
                     data;
             }
         } ]
+    });
+    $('#table_user').DataTable({
+        responsive: true,
+        scrollX: true
     });
 
     $('#product_picture').on('change', function (e) {

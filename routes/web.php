@@ -20,6 +20,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/company-login', 'Auth\CompanyLoginController@CompanyLogin')->name('company_login');
 Route::post('/check-tenant', 'Auth\CompanyLoginController@CheckTenant')->name('check_tenant');
 
+/* User Management Route */
+Route::resource('user', 'Auth\UserController');
+/* end of user management route */
+
 /* Master Data Routes */
 Route::resource('master_data', 'MasterData\MasterDataController');
 /* end of master data route */
