@@ -1,7 +1,4 @@
-$(document).ready(function () {form_add_user
-    $('.popover-dismiss').popover({
-        trigger: 'focus'
-    });
+$(document).ready(function () {
 
     $('#table_master_product').DataTable({
         responsive: true,
@@ -43,6 +40,10 @@ $(document).ready(function () {form_add_user
     $('#table_user').DataTable({
         responsive: true,
         scrollX: true
+    });
+    $('#table_complaint_product').DataTable({
+        responsive: true,
+        scrollX:true
     });
 
     $('#product_picture').on('change', function (e) {

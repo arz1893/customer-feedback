@@ -65,3 +65,13 @@ function deleteItem(selected) {
         });
     }
 }
+
+function deleteUser(selected) {
+    $('#modal_delete_user_content').html('Are you sure want to delete <span class="text-blue">' + $(selected).data('user_email') + '</span> ?');
+
+    $('<input>').attr({
+        type: 'hidden',
+        name: 'user_id',
+        value: $(selected).data('user_id')
+    }).appendTo('#form_delete_user');
+}

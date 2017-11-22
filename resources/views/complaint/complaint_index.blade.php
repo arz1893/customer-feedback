@@ -61,7 +61,7 @@
                                 @if($masterService->cover_image != null)
                                     <img class="img-responsive" src="{{ asset($masterService->cover_image) }}" style="width: 100%; height: 100px;">
                                 @else
-                                    <img class="img-responsive" src="{{ asset('default-images/handshake-icon.png') }}" style="width: 100%; height: 100px;">
+                                    <img class="img-responsive" src="{{ asset('default-images/handshake.jpg') }}" style="width: 100%; height: 100px;">
                                 @endif
                                 <div class="overlay">
                                     <h3>{{ $masterService->name }}</h3>

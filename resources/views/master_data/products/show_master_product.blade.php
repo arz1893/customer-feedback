@@ -91,8 +91,6 @@
 
     @include('layouts.master_data.product_category.modal_crud_product_category')
 
-
-
     <hr>
 
     <div class="row">

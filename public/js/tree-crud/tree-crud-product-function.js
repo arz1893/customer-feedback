@@ -1,20 +1,17 @@
 $(document).ready(function () {
     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
-    var master_product_id = $('#master_product_id').val();
 
     $('#product_category_tree').fancytree({
-        extensions: ['edit'],
-        wide: {
-            iconWidth: "2em",       // Adjust this if @fancy-icon-width != "16px"
-            iconSpacing: "1em",   // Adjust this if @fancy-icon-spacing != "3px"
-            labelSpacing: "0.6em",  // Adjust this if padding between icon and label != "3px"
-            levelOfs: "2.5em"       // Adjust this if ul padding != "16px"
+        extensions: ['glyph','wide','edit'],
+        glyph: {
+            preset: 'material',
+            map: {}
         },
         source: $.ajax({
             method: 'POST',
             url: window.location.protocol + "//" + window.location.host + "/" + 'product_category/get-trees',
             dataType: 'json',
-            data: {master_product_id: master_product_id, _token: CSRF_TOKEN},
+            data: {master_product_id: $('#master_product_id').val(), _token: CSRF_TOKEN},
             success: function (response) {
                 console.log(response);
                 return response;
@@ -102,6 +99,34 @@ $(document).ready(function () {
             } else if(itemKey === 'rename') {
                 node.editStart();
             }
+        }
+    });
+
+    $('#complaint_product_tree').fancytree({
+        extensions: ['glyph','wide','edit'],
+        glyph: {
+            preset: 'material',
+            map: {}
+        },
+        source: $.ajax({
+            method: 'POST',
+            url: window.location.protocol + "//" + window.location.host + "/" + 'product_category/get-trees',
+            dataType: 'json',
+            data: {master_product_id: $('#master_product_id').val(), _token: CSRF_TOKEN},
+            success: function (response) {
+                console.log(response);
+                return response;
+            }
+        }),
+
+        lazyload: function (event, data) {
+            var node = data.node;
+            data.result = {
+                method: 'POST',
+                url: window.location.protocol + "//" + window.location.host + "/" + 'product_category/get-childs',
+                data: {mode: 'children', parent_id: node.key, _token: CSRF_TOKEN},
+                cache: false
+            };
         }
     });
 });

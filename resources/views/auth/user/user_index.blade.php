@@ -53,15 +53,45 @@
                         @endif
                     </td>
                     <td>
-                        <a href="#!" class="btn btn-danger">
-                            <i class="ion ion-ios-trash"></i>
-                        </a>
-                        <a href="{{ route('user.edit', $user) }}" class="btn btn-warning">
-                            <i class="ion ion-edit"></i>
-                        </a>
+                        @if($user->user_type_id != 1)
+                            <button class="btn btn-danger"
+                                    data-user_id="{{ $user->id }}"
+                                    data-user_email="{{ $user->email }}"
+                                    data-toggle="modal"
+                                    data-target="#modal_delete_user"
+                                    onclick="deleteUser(this)">
+                                <i class="ion ion-ios-trash"></i>
+                            </button>
+                            <a href="{{ route('user.edit', $user->id) }}" class="btn btn-warning">
+                                <i class="ion ion-edit"></i>
+                            </a>
+                        @else
+                            <span class="text-red">this user can't be edited or deleted</span>
+                        @endif
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal_delete_user" tabindex="-1" role="dialog" aria-labelledby="modalDeleteUserLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modalDeleteUserLabel">Delete User</h4>
+                </div>
+                {{ Form::open(['action' => 'Auth\UserController@deleteUser', 'id' => 'form_delete_user']) }}
+                <div class="modal-body" id="modal_delete_user_content">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
 @endsection

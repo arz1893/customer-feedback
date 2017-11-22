@@ -23,5 +23,7 @@
         {{ Form::model($user, ['method' => 'PATCH', 'action' => ['Auth\UserController@update', $user], 'id' => 'form_edit_user']) }}
             @include('layouts.user.edit_user_form', ['submitButtonText' => 'Update User'])
         {{ Form::close() }}
+
+
     </div>
 @endsection

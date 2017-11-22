@@ -18,6 +18,8 @@
     <link rel="stylesheet" href="{{ asset('css/font-awesome/font-awesome.css') }}">
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('css/ionicons/css/ionicons.css') }}">
+    <!-- Material icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/admin-lte/AdminLTE.css') }}">
     <!-- AdminLTE Skins. Choose a skin from the css/skins
@@ -34,7 +36,7 @@
     <!-- Date dropper -->
     <link href="{{ asset('css/date-dropper/datedropper.css') }}" rel="stylesheet">
     <!-- Fancy Tree -->
-    <link href="{{ asset('css/fancytree/skin-lion/ui.fancytree.css') }}" rel="stylesheet" class="skinswitcher">
+    <link href="{{ asset('css/fancytree/skin-material/ui.fancytree.css') }}" rel="stylesheet" class="skinswitcher">
     <!-- Context Menu Dependency -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.2.3/jquery.contextMenu.min.css" />
 
@@ -285,6 +287,7 @@
     <script src="{{ asset('js/date-dropper/datedropper.js') }}" type="text/javascript"></script>
     <!-- Fancy Tree -->
     <script src="{{ asset('js/fancytree/jquery.fancytree-all-deps.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/fancytree/jquery.fancytree.glyph.js') }}" type="text/javascript"></script>
     <!-- Context Menu Dependency -->
     <script src="{{ asset('js/fancytree/jquery-ui.custom.js') }}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.2.3/jquery.contextMenu.min.js"></script>

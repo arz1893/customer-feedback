@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Complaint;
 
 use App\MasterProduct;
-use App\SubMasterProduct;
+use App\ProductCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -11,8 +11,8 @@ class ComplaintProductController extends Controller
 {
     public function complaintProduct($id) {
         $masterProduct = MasterProduct::findOrFail($id);
-        $subMasterProducts = SubMasterProduct::where('master_product_id', $id)->get();
-        return view('complaint.product.complaint_product', compact('masterProduct', 'subMasterProducts'));
+        $productCategories = ProductCategory::where('master_product_id', $masterProduct->id)->where('parent_id', null)->get();
+        return view('complaint.product.complaint_product', compact('masterProduct', 'productCategories'));
     }
 
     public function addComplaintProduct($id) {

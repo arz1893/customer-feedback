@@ -22,6 +22,7 @@ Route::post('/check-tenant', 'Auth\CompanyLoginController@CheckTenant')->name('c
 
 /* User Management Route */
 Route::resource('user', 'Auth\UserController');
+Route::post('user/delete-user', 'Auth\UserController@deleteUser');
 /* end of user management route */
 
 /* Master Data Routes */

@@ -250,6 +250,11 @@ a.cardproduct.active {
     font-size:13px;
 }
 
-ul.fancytree.icon {
-    font-size: 18pt;
+/* Fancy tree styling */
+span.fancytree-title,
+span.fancytree-icon,
+span.fancytree-expander{
+    color: navy;
+    font-size: 15pt;
+    vertical-align: middle;
 }

@@ -71,10 +71,10 @@
                         </div>
                     </a>
                 @endforeach
-                <div class="row">
-                    <div class="text-center">
-                        {{ $masterServices->links() }}
-                    </div>
+            </div>
+            <div class="row">
+                <div class="text-center">
+                    {{ $masterServices->links() }}
                 </div>
             </div>
         </div>

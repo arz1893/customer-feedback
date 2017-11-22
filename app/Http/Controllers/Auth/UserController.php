@@ -28,6 +28,7 @@ class UserController extends Controller
             'id' => Uuid::generate(3, $request->email, Uuid::NS_DNS),
             'email' => $request->email,
             'name' => $request->name,
+            'phone' => $request->phone,
             'password' => bcrypt($request->input('password')),
             'tenant_id' => $request->tenant_id,
             'user_type_id' => $request->input('user_type_id')
@@ -43,5 +44,15 @@ class UserController extends Controller
     public function update(UserRequest $request, User $user) {
         $user->update($request->all());
         return redirect('user')->with('status', 'User has been updated');
+    }
+
+    public function deleteUser(Request $request) {
+        $user = User::findOrFail($request->user_id);
+        if($user != null) {
+            $user->delete();
+            return redirect('user')->with('status', 'User has been deleted');
+        } else {
+            return redirect('user')->with('error','User not found');
+        }
     }
 }
