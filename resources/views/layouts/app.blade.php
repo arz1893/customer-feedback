@@ -22,15 +22,12 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{ asset('css/admin-lte/AdminLTE.css') }}">
-    <!-- AdminLTE Skins. Choose a skin from the css/skins
-         folder instead of downloading all of them to reduce the load. -->
+    <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
     <link rel="stylesheet" href="{{ asset('css/admin-lte/_all-skins.css') }}">
     <!-- Data Table -->
     <link rel="stylesheet" href="{{ asset('css/datatables/datatables.css') }}">
     <link rel="stylesheet" href="{{ asset('css/datatables/responsive.dataTables.css') }}">
     <link rel="stylesheet" href="{{ asset('css/datatables/responsive.bootstrap.css') }}">
-    <!-- Bootstrap toggle button -->
-    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
     <!-- Bootstrap Select -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css" rel="stylesheet">
     <!-- Date dropper -->
@@ -39,7 +36,8 @@
     <link href="{{ asset('css/fancytree/skin-material/ui.fancytree.css') }}" rel="stylesheet" class="skinswitcher">
     <!-- Context Menu Dependency -->
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.2.3/jquery.contextMenu.min.css" />
-
+    <!-- Icheck -->
+    <link rel="stylesheet" href="{{ asset('css/icheck/all.css') }}">
 
     @stack('styles')
 
@@ -279,8 +277,6 @@
     <script src="{{ asset('js/jquery-validate/jquery.validate.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/functions.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/form-validation.js') }}" type="text/javascript"></script>
-    <!-- Bootstrap toggle button -->
-    <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <!-- Bootstrap Select -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js" type="text/javascript"></script>
     <!-- Date dropper -->
@@ -293,7 +289,8 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-contextmenu/2.2.3/jquery.contextMenu.min.js"></script>
     <!-- Fancy Tree Context Menu -->
     <script src="{{ asset('js/fancytree/jquery.ui-contextmenu.js') }}" type="text/javascript"></script>
-
+    <!-- Icheck -->
+    <script src="{{ asset('js/icheck/icheck.min.js') }}" type="text/javascript"></script>
     @stack('scripts')
 
     <script src="{{ asset('js/app.js') }}"></script>

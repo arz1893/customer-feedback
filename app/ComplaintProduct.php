@@ -16,7 +16,7 @@ class ComplaintProduct extends Model
         'tenant_id',
         'customer_id',
         'master_product_id',
-        'sub_master_product_id'
+        'product_category_id'
     ];
 
     public function tenant() {
@@ -25,5 +25,13 @@ class ComplaintProduct extends Model
 
     public function master_product() {
         return $this->belongsTo(MasterProduct::class, 'master_product_id');
+    }
+
+    public function customer() {
+        return $this->belongsTo(Customer::class, 'customer_id');
+    }
+
+    public function product_category() {
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');
     }
 }

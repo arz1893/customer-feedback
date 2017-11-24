@@ -92,8 +92,10 @@ Route::resource('complaint', 'Complaint\ComplaintController');
 /* end of complaint routes */
 
 /* Complaint Product Routes */
-Route::get('complaint/product/{id}', 'Complaint\ComplaintProductController@addComplaintProduct')->name('add_complaint_product');
-Route::get('complaint/complaint_product/{id}', 'Complaint\ComplaintProductController@complaintProduct')->name('complaint_product');
+Route::get('complaint/complaint-product/{MasterProduct}', 'Complaint\ComplaintProductController@complaintProduct')->name('complaint_product');
+Route::post('complaint/add-complaint-product', 'Complaint\ComplaintProductController@addComplaintProduct')->name('add_complaint_product');
+Route::get('complaint/edit-complaint-product/{ComplaintProduct}', 'Complaint\ComplaintProductController@editComplaintProduct')->name('edit_complaint_product');
+Route::put('complaint/update-complaint-product/{ComplaintProduct}', 'Complaint\ComplaintProductController@updateComplaintProduct')->name('update_complaint_product');
 /* end of complaint product routes */
 
 /* Question Routes */

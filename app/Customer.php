@@ -24,4 +24,8 @@ class Customer extends Model
     public function tenant() {
         return $this->belongsTo(Tenant::class, 'tenant_id');
     }
+
+    public function complaint_product() {
+        return $this->hasMany(ComplaintProduct::class);
+    }
 }

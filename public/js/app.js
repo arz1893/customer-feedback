@@ -71,5 +71,7 @@ $(document).ready(function () {
         backdrop: 'static'
     });
 
-
+    $('input').iCheck({
+        checkboxClass: 'icheckbox_square-blue'
+    });
 });
