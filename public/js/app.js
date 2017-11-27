@@ -43,7 +43,11 @@ $(document).ready(function () {
     });
     $('#table_complaint_product').DataTable({
         responsive: true,
-        scrollX:true
+        scrollX: true
+    });
+    $('#table_complaint_service').DataTable({
+        responsive: true,
+        scrollX: true
     });
 
     $('#product_picture').on('change', function (e) {
@@ -72,6 +76,7 @@ $(document).ready(function () {
     });
 
     $('input').iCheck({
-        checkboxClass: 'icheckbox_square-blue'
+        checkboxClass: 'icheckbox_square-blue',
+        radioClass: 'iradio_square-blue',
     });
 });

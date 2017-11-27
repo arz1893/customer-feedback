@@ -16,6 +16,7 @@ class CustomerController extends Controller
         Customer::create([
             'name' => $request->name,
             'gender' => $request->gender,
+            'email' => $request->email,
             'phone' => $request->phone,
             'birthdate' => $birthdate,
             'address' => $request->address,

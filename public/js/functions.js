@@ -75,3 +75,12 @@ function deleteUser(selected) {
         value: $(selected).data('user_id')
     }).appendTo('#form_delete_user');
 }
+
+function deleteComplaintProduct(selected) {
+    $('<input>').attr({
+        type: 'hidden',
+        name: 'complaint_id',
+        value: $(selected).data('id')
+    }).appendTo('#form_delete_complaint');
+    $('#modal_remove_complaint').modal('show');
+}

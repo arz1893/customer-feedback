@@ -34,16 +34,14 @@
         <div id="product_panel" class="tab-pane fade in active">
             <div class="row">
                 @foreach($masterProducts as $masterProduct)
-                    <a href="{{ route('complaint_product', $masterProduct->id) }}">
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
-                            <div class="hovereffect">
-                                <img class="img-responsive" src="{{ asset($masterProduct->cover_image) }}" style="width: 100%; height: 100px;">
-                                <div class="overlay">
-                                    <h3>{{ $masterProduct->name }}</h3>
-                                </div>
-                            </div>
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                        <div class="imagebox">
+                            <a href="{{ route('complaint_product', $masterProduct->id) }}">
+                                <img src="{{ asset($masterProduct->cover_image) }}"  class="category-banner img-responsive">
+                                <span class="imagebox-desc">{{ $masterProduct->name }}</span>
+                            </a>
                         </div>
-                    </a>
+                    </div>
                 @endforeach
             </div>
             <div class="row">
@@ -55,20 +53,18 @@
         <div id="service_panel" class="tab-pane fade">
             <div class="row">
                 @foreach($masterServices as $masterService)
-                    <a href="{{ route('service_faq', $masterService->id) }}">
-                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-4">
-                            <div class="hovereffect">
+                    <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
+                        <div class="imagebox">
+                            <a href="{{ route('complaint_service', $masterService->id) }}">
                                 @if($masterService->cover_image != null)
-                                    <img class="img-responsive" src="{{ asset($masterService->cover_image) }}" style="width: 100%; height: 100px;">
+                                    <img src="{{ asset($masterService->cover_image) }}"  class="category-banner img-responsive">
                                 @else
-                                    <img class="img-responsive" src="{{ asset('default-images/handshake.jpg') }}" style="width: 100%; height: 100px;">
+                                    <img src="{{ asset('default-images/handshake.jpg') }}"  class="category-banner img-responsive">
                                 @endif
-                                <div class="overlay">
-                                    <h3>{{ $masterService->name }}</h3>
-                                </div>
-                            </div>
+                                <span class="imagebox-desc">{{ $masterService->name }}</span>
+                            </a>
                         </div>
-                    </a>
+                    </div>
                 @endforeach
             </div>
             <div class="row">

@@ -27,6 +27,17 @@
     </div>
 
     <div class="row form-margin-bottom">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            <label for="email" class="control-label">
+                Email address <span class="text-danger">*</span>
+            </label>
+        </div>
+        <div class="col-lg-7 col-md-7 col-sm-7 col-xs-8 error">
+            {{ Form::email('email', null, ['class' => 'form-control', 'placeholder' => 'Enter customer\'s email']) }}
+        </div>
+    </div>
+
+    <div class="row form-margin-bottom">
         <div class="form-group">
             <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                 <label for="phone" class="control-label">
@@ -34,7 +45,7 @@
                 </label>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-8">
-                {{ Form::input('number', 'tel', null, ['class' => 'form-control', 'placeholder' => 'Customer\'s phone number']) }}
+                {{ Form::input('number', 'phone', null, ['class' => 'form-control', 'placeholder' => 'Customer\'s phone number']) }}
             </div>
         </div>
     </div>

@@ -230,6 +230,7 @@ $(document).ready(function () {
             password_confirmation: {
                 equalTo: '#password'
             },
+            phone: 'required',
             user_type_id: 'required'
         },
         messages: {
@@ -245,6 +246,7 @@ $(document).ready(function () {
             password_confirmation: {
                 equalTo: 'your password didn\'t match'
             },
+            phone: 'please enter user\'s phone number',
             user_type_id: 'please select user type'
         },
 
@@ -266,6 +268,22 @@ $(document).ready(function () {
             user_type_id: 'please select user type'
         },
 
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+
+    $('#form_add_complaint_product').validate({
+        errorClass: "my-error-class",
+        validClass: "my-valid-class",
+
+        rules: {
+            customer_complaint: 'required'
+        },
+        messages: {
+            customer_complaint: 'please enter customer\'s complaint'
+        },
+        
         submitHandler: function (form) {
             form.submit();
         }

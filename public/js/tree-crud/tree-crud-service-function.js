@@ -3,7 +3,11 @@ $(document).ready(function () {
     var master_service_id = $('#master_service_id').val();
 
     $('#service_category_tree').fancytree({
-        extensions: ['edit'],
+        extensions: ['glyph','wide','edit'],
+        glyph: {
+            preset: 'material',
+            map: {}
+        },
         source: $.ajax({
             method: 'POST',
             url: window.location.protocol + "//" + window.location.host + "/" + 'service_category/get-trees',

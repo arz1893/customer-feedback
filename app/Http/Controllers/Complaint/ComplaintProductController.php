@@ -9,19 +9,31 @@ use App\ProductCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class ComplaintProductController extends Controller
 {
     public function complaintProduct($id) {
         $masterProduct = MasterProduct::findOrFail($id);
         $productCategories = ProductCategory::where('master_product_id', $masterProduct->id)->where('parent_id', null)->get();
-        $customers = Customer::where('tenant_id', Auth::user()->tenant_id)->pluck('name', 'id');
+        $selectCustomers = Customer::where('tenant_id', Auth::user()->tenant_id)->pluck('name', 'id');
         $complaintProducts = ComplaintProduct::where('master_product_id', $masterProduct->id)->get();
-        return view('complaint.product.complaint_product', compact('masterProduct', 'productCategories', 'customers', 'complaintProducts'));
+        return view('complaint.product.complaint_product', compact('masterProduct', 'productCategories', 'selectCustomers', 'complaintProducts'));
     }
 
     public function addComplaintProduct(Request $request) {
-//        dd($request->all());
+        $rules = [
+            'customer_complaint' => 'required'
+        ];
+        $messages = [
+            'customer_complaint.required' => 'please enter customer\'s complaint'
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
         ComplaintProduct::create($request->all());
         return redirect()->back()->with('status', 'New complaint has been added');
     }
@@ -30,13 +42,19 @@ class ComplaintProductController extends Controller
         $complaintProduct = ComplaintProduct::findOrFail($id);
         $masterProduct = MasterProduct::findOrFail($complaintProduct->master_product_id);
         $productCategory = ProductCategory::findOrFail($complaintProduct->product_category_id);
-        $customers = Customer::where('tenant_id', Auth::user()->tenant_id)->pluck('name', 'id');
-        return view('complaint.product.edit_complaint_product', compact('complaintProduct', 'masterProduct', 'productCategory', 'customers'));
+        $selectCustomers = Customer::where('tenant_id', Auth::user()->tenant_id)->pluck('name', 'id');
+        return view('complaint.product.edit_complaint_product', compact('complaintProduct', 'masterProduct', 'productCategory', 'selectCustomers'));
     }
 
     public function updateComplaintProduct(Request $request, $id) {
         $complaintProduct = ComplaintProduct::findOrFail($id);
         $complaintProduct->update($request->all());
-        return redirect()->back()->with('status', 'Complaint has been updated');
+        return redirect()->route('complaint_product', $complaintProduct->master_product_id)->with('status', 'Complaint has been updated');
+    }
+
+    public function deleteComplaintProduct(Request $request) {
+        $complaintProduct = ComplaintProduct::findOrFail($request->complaint_id);
+        $complaintProduct->delete();
+        return redirect()->back()->with('status', 'Complaint has been deleted');
     }
 }

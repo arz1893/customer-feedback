@@ -27,6 +27,8 @@
 @section('main-content')
     {{ Form::hidden('master_product_id', $masterProduct->id, ['id' => 'master_product_id']) }}
 
+    @include('layouts.errors.error_list')
+
     @if(\Session::has('status'))
         <div class="alert alert-success alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -38,9 +40,11 @@
         Add Complaint <i class="ion ion-plus-circled"></i>
     </button>
 
-    <button class="btn btn-primary btn-flat">
+    <button class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal_add_customer">
         Add User <i class="fa fa-user-plus"></i>
     </button>
+
+    @include('customer.modal_add_customer')
 
     <div id="complaint_product_tree" class="fancytree-colorize-hover fancytree-fade-expander"></div>
 
@@ -65,7 +69,11 @@
                     <td>{{ $counter }}</td>
                     <td>
                         <a>
-                            {{--{{ $complaintProduct->customer->name }}--}}
+                            @if($complaintProduct->customer_id != null)
+                                {{ $complaintProduct->customer->name }}
+                            @else
+                                Anonymous
+                            @endif
                         </a>
                     </td>
                     <td>{{ $complaintProduct->product_category->name }}</td>
@@ -76,7 +84,7 @@
                         <a href="{{ route('edit_complaint_product', $complaintProduct->id) }}" class="btn btn-warning">
                             <i class="ion ion-edit"></i>
                         </a>
-                        <button class="btn btn-danger">
+                        <button class="btn btn-danger" data-id="{{ $complaintProduct->id }}" onclick="deleteComplaintProduct(this)">
                             <i class="ion ion-ios-trash"></i>
                         </button>
                     </td>
@@ -86,7 +94,7 @@
         </tbody>
     </table>
 
-    <!-- Modal -->
+    <!-- Modal Add Complaint -->
     <div class="modal fade" id="modal_add_complaint_product" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -102,6 +110,27 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-danger">Add Complaint</button>
+                </div>
+                {{ Form::close() }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Remove Complaint -->
+    <div class="modal fade" id="modal_remove_complaint" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-danger" id="myModalLabel">Add Complaint</h4>
+                </div>
+                {{ Form::open(['action' => 'Complaint\ComplaintProductController@deleteComplaintProduct', 'id' => 'form_delete_complaint']) }}
+                <div class="modal-body">
+                    Are you sure want to delete this complaint ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-danger">Remove Complaint</button>
                 </div>
                 {{ Form::close() }}
             </div>
