@@ -36,17 +36,39 @@
         </div>
     @endif
 
-    <button class="btn btn-danger btn-flat" onclick="setComplaintTarget(this)">
-        Add Complaint <i class="ion ion-plus-circled"></i>
-    </button>
+    <h3>Categories</h3>
 
-    <button class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal_add_customer">
-        Add User <i class="fa fa-user-plus"></i>
-    </button>
 
-    @include('customer.modal_add_customer')
+    @if(isset($previousLevelId))
+        @if($previousLevelId == 0)
+            <a href="{{ route('complaint_product', [$masterProductId, 0]) }}" class="btn btn-link">
+                <i class="fa fa-arrow-circle-up"></i> Up one level
+            </a><br>
+        @else
+            <a href="{{ route('complaint_product', [0, $previousLevelId]) }}" class="btn btn-link">
+                <i class="fa fa-arrow-circle-up"></i> Up one level
+            </a> <br>
+        @endif
+    @endif
 
-    <div id="complaint_product_tree" class="fancytree-colorize-hover fancytree-fade-expander"></div>
+    @foreach($productCategories as $productCategory)
+        <a href="{{ route('complaint_product', [$masterProduct->id, $productCategory->id]) }}" class="btn btn-app">
+            <span class="badge bg-aqua">{{ count($productCategory->getImmediateDescendants()) }}</span>
+            <i class="ion ion-pricetag" aria-hidden="true"></i> {{ $productCategory->name }}
+        </a>
+    @endforeach
+
+    {{--<button class="btn btn-danger btn-flat" onclick="setComplaintTarget(this)">--}}
+        {{--Add Complaint <i class="ion ion-plus-circled"></i>--}}
+    {{--</button>--}}
+
+    {{--<button class="btn btn-primary btn-flat" data-toggle="modal" data-target="#modal_add_customer">--}}
+        {{--Add User <i class="fa fa-user-plus"></i>--}}
+    {{--</button>--}}
+
+    {{--@include('customer.modal_add_customer')--}}
+
+    {{--<div id="complaint_product_tree" class="fancytree-colorize-hover fancytree-fade-expander"></div>--}}
 
     <h3>Complaint List</h3>
 

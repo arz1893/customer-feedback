@@ -13,12 +13,31 @@ use Illuminate\Support\Facades\Validator;
 
 class ComplaintProductController extends Controller
 {
-    public function complaintProduct($id) {
+    public function complaintProduct($id, $parentId) {
         $masterProduct = MasterProduct::findOrFail($id);
-        $productCategories = ProductCategory::where('master_product_id', $masterProduct->id)->where('parent_id', null)->get();
-        $selectCustomers = Customer::where('tenant_id', Auth::user()->tenant_id)->pluck('name', 'id');
-        $complaintProducts = ComplaintProduct::where('master_product_id', $masterProduct->id)->get();
-        return view('complaint.product.complaint_product', compact('masterProduct', 'productCategories', 'selectCustomers', 'complaintProducts'));
+        if($parentId == 0) {
+            $productCategories = ProductCategory::where('master_product_id', $masterProduct->id)->where('parent_id', null)->get();
+            $selectCustomers = Customer::where('tenant_id', Auth::user()->tenant_id)->pluck('name', 'id');
+            $complaintProducts = ComplaintProduct::where('master_product_id', $masterProduct->id)->get();
+            return view('complaint.product.complaint_product', compact('masterProduct', 'productCategories', 'selectCustomers', 'complaintProducts'));
+        }
+
+        $productCategories = ProductCategory::where('parent_id', $parentId)->get();
+
+        $currentLevel = ProductCategory::findOrFail($parentId);
+        if($currentLevel->parent_id == null) {
+            $previousLevelId = 0;
+            $masterProductId = $currentLevel->master_product_id;
+            $selectCustomers = Customer::where('tenant_id', Auth::user()->tenant_id)->pluck('name', 'id');
+            $complaintProducts = ComplaintProduct::where('master_product_id', $masterProduct->id)->get();
+            return view('complaint.product.complaint_product', compact('masterProduct', 'productCategories', 'previousLevelId', 'masterProductId', 'selectCustomers', 'complaintProducts'));
+        } else {
+            $previousLevelId = $currentLevel->parent_id;
+            $selectCustomers = Customer::where('tenant_id', Auth::user()->tenant_id)->pluck('name', 'id');
+            $complaintProducts = ComplaintProduct::where('master_product_id', $masterProduct->id)->get();
+            return view('complaint.product.complaint_product', compact('masterProduct', 'productCategories', 'previousLevelId', 'selectCustomers', 'complaintProducts'));
+        }
+
     }
 
     public function addComplaintProduct(Request $request) {

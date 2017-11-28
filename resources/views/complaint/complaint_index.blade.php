@@ -36,7 +36,7 @@
                 @foreach($masterProducts as $masterProduct)
                     <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
                         <div class="imagebox">
-                            <a href="{{ route('complaint_product', $masterProduct->id) }}">
+                            <a href="{{ route('complaint_product', [$masterProduct->id, 0]) }}">
                                 <img src="{{ asset($masterProduct->cover_image) }}"  class="category-banner img-responsive">
                                 <span class="imagebox-desc">{{ $masterProduct->name }}</span>
                             </a>
