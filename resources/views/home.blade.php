@@ -83,8 +83,8 @@
                     </a>
 
                     <ul class="treeview-menu">
-                        <li><a href="{{ route('complaint_list.index') }}"><i class="ion ion-ios-list-outline"></i> List of Complaints</a></li>
-                        <li><a href="#!"><i class="ion ion-ios-list-outline"></i> List of Suggestions</a></li>
+                        <li><a href="{{ route('complaint_list_product.index') }}"><i class="ion ion-ios-list-outline"></i> List of Product Complaint</a></li>
+                        <li><a href="{{ route('complaint_list_service.index') }}"><i class="ion ion-ios-list-outline"></i> List of Service Complaint</a></li>
                     </ul>
                 </li>
                 <li class="treeview">

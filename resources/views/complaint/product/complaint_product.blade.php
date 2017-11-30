@@ -6,7 +6,7 @@
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('js/vue-function.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/vue/vue_complaint_product.js') }}" type="text/javascript"></script>
 @endpush
 
 @section('content-header')
@@ -40,7 +40,7 @@
         </div>
     @endif
 
-    <div id="vue_container">
+    <div id="vue_complaint_product_container">
 
         <transition name="fadeDown">
             <a href="#!" class="btn btn-link btn-lg" id="btn_show_category_navigator" v-on:click="showNavigator()" v-if="!show">

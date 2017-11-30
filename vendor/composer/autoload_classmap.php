@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\ComplaintProduct' => $baseDir . '/app/ComplaintProduct.php',
+    'App\\ComplaintService' => $baseDir . '/app/ComplaintService.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Currency' => $baseDir . '/app/Currency.php',
     'App\\Customer' => $baseDir . '/app/Customer.php',
@@ -20,7 +21,7 @@ return array(
     'App\\Http\\Controllers\\Auth\\ResetPasswordController' => $baseDir . '/app/Http/Controllers/Auth/ResetPasswordController.php',
     'App\\Http\\Controllers\\Auth\\UserController' => $baseDir . '/app/Http/Controllers/Auth/UserController.php',
     'App\\Http\\Controllers\\Complaint\\ComplaintController' => $baseDir . '/app/Http/Controllers/Complaint/ComplaintController.php',
-    'App\\Http\\Controllers\\Complaint\\ComplaintListController' => $baseDir . '/app/Http/Controllers/Complaint/ComplaintListController.php',
+    'App\\Http\\Controllers\\Complaint\\ComplaintListProductController' => $baseDir . '/app/Http/Controllers/Complaint/ComplaintListProductController.php',
     'App\\Http\\Controllers\\Complaint\\ComplaintProductController' => $baseDir . '/app/Http/Controllers/Complaint/ComplaintProductController.php',
     'App\\Http\\Controllers\\Complaint\\ComplaintServiceController' => $baseDir . '/app/Http/Controllers/Complaint/ComplaintServiceController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',

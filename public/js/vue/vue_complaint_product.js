@@ -1,5 +1,5 @@
-var app = new Vue({
-    el: '#vue_container',
+var complaint_product = new Vue({
+    el: '#vue_complaint_product_container',
     data: {
         nodeTitle: '',
         masterProductId: '',
@@ -15,7 +15,7 @@ var app = new Vue({
             this.masterProductId = '<input type="hidden" name="master_product_id" value="' + masterProductId +'">';
             this.productCategoryId = '<input type="hidden" name="product_category_id" value="' + productCategoryId +'">';
         },
-        
+
         showNavigator: function () {
             this.show = true;
         }

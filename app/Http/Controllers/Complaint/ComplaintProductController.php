@@ -18,7 +18,7 @@ class ComplaintProductController extends Controller
             $masterProduct = MasterProduct::findOrFail($id);
             $productCategories = ProductCategory::where('master_product_id', $masterProduct->id)->where('parent_id', null)->get();
             $selectCustomers = Customer::where('tenant_id', Auth::user()->tenant_id)->pluck('name', 'id');
-            return view('complaint.product.complaint_product', compact('masterProduct', 'productCategories', 'selectCustomers', 'complaintProducts'));
+            return view('complaint.product.complaint_product', compact('masterProduct', 'productCategories', 'selectCustomers'));
         } else {
             $masterProduct = MasterProduct::findOrFail($id);
             $productCategories = ProductCategory::where('parent_id', $currentNodeId)->get();

@@ -3,12 +3,12 @@
 @section('content-header')
     <ol class="breadcrumb">
         <li><a href="{{ url('/home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Complaint Product List</li>
+        <li class="active">Complaint Service List</li>
     </ol>
 @endsection
 
 @section('main-content')
-    <h3 class="text-red">Complaint Product List</h3>
+    <h3 class="text-red">Complaint Service List</h3>
 
     <table class="table table-striped" id="table_complaint_product" style="width: 100%">
         <thead>
@@ -25,28 +25,28 @@
         </thead>
         <tbody>
         @php $counter = 1; @endphp
-        @foreach($complaintProducts as $complaintProduct)
+        @foreach($complaintServices as $complaintService)
             <tr>
                 <td>{{ $counter }}</td>
                 <td>
                     <a>
-                        @if($complaintProduct->customer_id != null)
-                            {{ $complaintProduct->customer->name }}
+                        @if($complaintService->customer_id != null)
+                            {{ $complaintService->customer->name }}
                         @else
                             Anonymous
                         @endif
                     </a>
                 </td>
-                <td>{{ $complaintProduct->master_product->name }}</td>
-                <td>{{ $complaintProduct->product_category->name }}</td>
-                <td>{{ $complaintProduct->customer_complaint }}</td>
-                <td>{!! $complaintProduct->is_need_call == 1 ? '<span class="text-red">yes</span>':'<span class="blue-text">no</span>' !!}</td>
-                <td>{!! $complaintProduct->is_urgent == 1 ? '<span class="text-red">yes</span>':'<span class="blue-text">no</span>' !!}</td>
+                <td>{{ $complaintService->master_service->name }}</td>
+                <td>{{ $complaintService->service_category->name }}</td>
+                <td>{{ $complaintService->customer_complaint }}</td>
+                <td>{!! $complaintService->is_need_call == 1 ? '<span class="text-red">yes</span>':'<span class="blue-text">no</span>' !!}</td>
+                <td>{!! $complaintService->is_urgent == 1 ? '<span class="text-red">yes</span>':'<span class="blue-text">no</span>' !!}</td>
                 <td>
                     <a href="#!" class="btn btn-warning">
                         <i class="ion ion-edit"></i>
                     </a>
-                    <button class="btn btn-danger" data-id="{{ $complaintProduct->id }}" onclick="deleteComplaintProduct(this)">
+                    <button class="btn btn-danger" data-id="{{ $complaintService->id }}">
                         <i class="ion ion-ios-trash"></i>
                     </button>
                 </td>
@@ -64,7 +64,7 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title text-danger" id="myModalLabel">Add Complaint</h4>
                 </div>
-                {{ Form::open(['action' => 'Complaint\ComplaintProductController@deleteComplaintProduct', 'id' => 'form_delete_complaint_product']) }}
+                {{ Form::open(['action' => 'Complaint\ComplaintListServiceController@deleteComplaintService', 'id' => 'form_delete_complaint_service']) }}
                 <div class="modal-body">
                     Are you sure want to delete this complaint ?
                 </div>

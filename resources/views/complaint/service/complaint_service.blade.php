@@ -1,7 +1,11 @@
 @extends('home')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/vue-animation/vue2-animate.css') }}">
+@endpush
+
 @push('scripts')
-    <script src="{{ asset('js/tree-crud/tree-complaint-service-function.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/vue/vue_complaint_service.js') }}"type="text/javascript"></script>
 @endpush
 
 @section('content-header')
@@ -28,39 +32,81 @@
 
 @section('main-content')
 
+    {{ Form::hidden('master_service_id', $masterService->id, ['id' => 'master_service_id']) }}
+
     @if(\Session::has('status'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Success!</strong> {{ \Session::get('status') }}
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> Success!</h4>
+            {{ \Session::get('status') }}
         </div>
     @endif
 
-    <button class="btn btn-danger btn-flat">
-        Add Complaint <i class="ion ion-plus-circled"></i>
-    </button>
+    <div id="vue_complaint_service_container">
+        <transition name="fadeDown">
+            <a href="#!" class="btn btn-link btn-lg" id="btn_show_category_navigator" v-on:click="showNavigator()" v-if="!show">
+                <i class="fa fa-arrow-circle-left"></i> Back
+            </a>
+        </transition>
 
-    <button class="btn btn-primary btn-flat">
-        Add User <i class="fa fa-user-plus"></i>
-    </button>
+        <transition name="fadeDown">
+            <div id="category_navigator" v-if="show">
+                <h3>Categories</h3>
 
-    <div id="complaint_service_tree"></div>
+                @if(isset($currentParentNode))
+                    @if($currentParentNode->parent_id == null)
+                        <a href="{{ route('complaint_service', [$masterService->id, 0]) }}" class="btn btn-link btn-lg">
+                            <i class="fa fa-arrow-circle-up"></i> Up One Level
+                        </a> <br>
+                    @else
+                        <a href="{{ route('complaint_service', [$masterService->id, $currentParentNode->parent_id]) }}" class="btn btn-link btn-lg">
+                            <i class="fa fa-arrow-circle-up"></i> Up One Level
+                        </a> <br>
+                    @endif
+                @endif
 
-    <h3>Complaint List</h3>
+                @foreach($serviceCategories as $serviceCategory)
+                    @if(count($serviceCategory->getImmediateDescendants()) > 0)
+                        <a href="{{ route('complaint_service', [$masterService->id, $serviceCategory->id]) }}" class="btn btn-app">
+                            <span class="badge bg-aqua">{{ count($serviceCategory->getImmediateDescendants()) }}</span>
+                            <i class="ion ion-pricetag" aria-hidden="true"></i> {{ $serviceCategory->name }}
+                        </a>
+                    @elseif(count($serviceCategory->getImmediateDescendants()) == 0)
+                        <button class="btn btn-app active"
+                                data-node_id="{{ $serviceCategory->id }}"
+                                data-product_id="{{ $masterService->id }}"
+                                data-title="{{ $serviceCategory->name }}"
+                                v-on:click="append('{{ $serviceCategory->name }}', '{{ $masterService->id }}', '{{ $serviceCategory->id }}')">
+                            <i class="ion ion-pricetag" aria-hidden="true"></i> {{ $serviceCategory->name }}
+                        </button>
+                    @endif
+                @endforeach
+            </div>
+        </transition>
 
-    <table class="table table-hover table-striped" id="table_complaint_service" style="width: 100%;">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Customer Name</th>
-                <th>Category</th>
-                <th>Complaint content</th>
-                <th>Need Call ?</th>
-                <th>Is Urgent ?</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
+        @include('layouts.errors.error_list')
 
-        </tbody>
-    </table>
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <transition name="fadeDown">
+                    <div class="panel panel-danger" id="panel_add_complaint" v-if="!show">
+                        <div class="panel-heading">
+                            <h4>Add Complaint</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <span v-html="nodeTitle"></span>
+                            </div>
+                            {{ Form::open(['action' => 'Complaint\ComplaintServiceController@addComplaintService']) }}
+                                <div v-html="masterServiceId"></div>
+                                <div v-html="serviceCategoryId"></div>
+                                {{ Form::hidden('tenant_id', Auth::user()->tenant_id) }}
+                                @include('layouts.complaint_service.complaint_service_form')
+                            {{ Form::close() }}
+                        </div>
+                    </div>
+                </transition>
+            </div>
+        </div>
+    </div>
 @endsection

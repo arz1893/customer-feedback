@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class ComplaintListController extends Controller
+class ComplaintListProductController extends Controller
 {
     public function index() {
         $complaintProducts = ComplaintProduct::where('tenant_id', Auth::user()->tenant_id)->get();

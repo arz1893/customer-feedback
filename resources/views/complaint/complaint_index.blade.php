@@ -55,7 +55,7 @@
                 @foreach($masterServices as $masterService)
                     <div class="col-lg-2 col-md-3 col-sm-4 col-xs-6">
                         <div class="imagebox">
-                            <a href="{{ route('complaint_service', $masterService->id) }}">
+                            <a href="{{ route('complaint_service', [$masterService->id, 0]) }}">
                                 @if($masterService->cover_image != null)
                                     <img src="{{ asset($masterService->cover_image) }}"  class="category-banner img-responsive">
                                 @else

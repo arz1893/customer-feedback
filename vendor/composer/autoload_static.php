@@ -341,6 +341,7 @@ class ComposerStaticInit284279d3ec22f2b7224caf652a490cdc
 
     public static $classMap = array (
         'App\\ComplaintProduct' => __DIR__ . '/../..' . '/app/ComplaintProduct.php',
+        'App\\ComplaintService' => __DIR__ . '/../..' . '/app/ComplaintService.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Currency' => __DIR__ . '/../..' . '/app/Currency.php',
         'App\\Customer' => __DIR__ . '/../..' . '/app/Customer.php',
@@ -354,7 +355,7 @@ class ComposerStaticInit284279d3ec22f2b7224caf652a490cdc
         'App\\Http\\Controllers\\Auth\\ResetPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ResetPasswordController.php',
         'App\\Http\\Controllers\\Auth\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/UserController.php',
         'App\\Http\\Controllers\\Complaint\\ComplaintController' => __DIR__ . '/../..' . '/app/Http/Controllers/Complaint/ComplaintController.php',
-        'App\\Http\\Controllers\\Complaint\\ComplaintListController' => __DIR__ . '/../..' . '/app/Http/Controllers/Complaint/ComplaintListController.php',
+        'App\\Http\\Controllers\\Complaint\\ComplaintListProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/Complaint/ComplaintListProductController.php',
         'App\\Http\\Controllers\\Complaint\\ComplaintProductController' => __DIR__ . '/../..' . '/app/Http/Controllers/Complaint/ComplaintProductController.php',
         'App\\Http\\Controllers\\Complaint\\ComplaintServiceController' => __DIR__ . '/../..' . '/app/Http/Controllers/Complaint/ComplaintServiceController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
