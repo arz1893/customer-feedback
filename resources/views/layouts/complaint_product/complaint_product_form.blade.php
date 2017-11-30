@@ -2,6 +2,7 @@
     {{ Form::label('customer_id', 'Customer') }}
     {{ Form::select('customer_id', $selectCustomers, null, ['class' => 'form-control', 'placeholder' => 'Anonymous']) }}
 </div>
+
 <div class="form-group">
     {{ Form::label('', 'Customer Satisfaction') }} <br>
     <a class="smiley_rating">
@@ -44,5 +45,13 @@
                 Is Urgent ?
             </label>
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <button type="submit" class="btn btn-danger">
+            Add Complaint
+        </button>
     </div>
 </div>

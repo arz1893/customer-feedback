@@ -92,12 +92,16 @@ Route::resource('complaint', 'Complaint\ComplaintController');
 /* end of complaint routes */
 
 /* Complaint Product Routes */
-Route::get('complaint/complaint-product/{MasterProduct}/{parentId}', 'Complaint\ComplaintProductController@complaintProduct')->name('complaint_product');
+Route::get('complaint/complaint-product/{MasterProduct}/{CurrentNodeId}', 'Complaint\ComplaintProductController@complaintProduct')->name('complaint_product');
 Route::post('complaint/complaint-product/add-complaint-product', 'Complaint\ComplaintProductController@addComplaintProduct')->name('add_complaint_product');
 Route::post('complaint/complaint-product/delete-complaint-product', 'Complaint\ComplaintProductController@deleteComplaintProduct')->name('delete_complaint_product');
 Route::get('complaint/complaint-product/edit-complaint-product/{ComplaintProduct}', 'Complaint\ComplaintProductController@editComplaintProduct')->name('edit_complaint_product');
 Route::put('complaint/complaint-product/update-complaint-product/{ComplaintProduct}', 'Complaint\ComplaintProductController@updateComplaintProduct')->name('update_complaint_product');
 /* end of complaint product routes */
+
+/* Complaint List Routes */
+Route::resource('complaint_list', 'Complaint\ComplaintListController');
+/* end of complaint list routes */
 
 /* Complaint Service Routes */
 Route::get('complaint/complaint-service/{MasterService}', 'Complaint\ComplaintServiceController@complaintService')->name('complaint_service');

@@ -1,7 +1,12 @@
 @extends('home')
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/vue-animation/vue2-animate.css') }}"
+          xmlns:v-on="http://www.w3.org/1999/xhtml">
+@endpush
+
 @push('scripts')
-    <script src="{{ asset('js/tree-crud/tree-complaint-product-function.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/vue-function.js') }}" type="text/javascript"></script>
 @endpush
 
 @section('content-header')
@@ -27,36 +32,82 @@
 @section('main-content')
     {{ Form::hidden('master_product_id', $masterProduct->id, ['id' => 'master_product_id']) }}
 
-    @include('layouts.errors.error_list')
-
     @if(\Session::has('status'))
-        <div class="alert alert-success alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Success!</strong> {{ \Session::get('status') }}
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> Success!</h4>
+            {{ \Session::get('status') }}
         </div>
     @endif
 
-    <h3>Categories</h3>
+    <div id="vue_container">
 
+        <transition name="fadeDown">
+            <a href="#!" class="btn btn-link btn-lg" id="btn_show_category_navigator" v-on:click="showNavigator()" v-if="!show">
+                <i class="fa fa-arrow-circle-left"></i> Back
+            </a>
+        </transition>
 
-    @if(isset($previousLevelId))
-        @if($previousLevelId == 0)
-            <a href="{{ route('complaint_product', [$masterProductId, 0]) }}" class="btn btn-link">
-                <i class="fa fa-arrow-circle-up"></i> Up one level
-            </a><br>
-        @else
-            <a href="{{ route('complaint_product', [0, $previousLevelId]) }}" class="btn btn-link">
-                <i class="fa fa-arrow-circle-up"></i> Up one level
-            </a> <br>
-        @endif
-    @endif
+        <transition name="fadeDown">
+            <div id="category_navigator" v-if="show">
+                <h3>Categories</h3>
 
-    @foreach($productCategories as $productCategory)
-        <a href="{{ route('complaint_product', [$masterProduct->id, $productCategory->id]) }}" class="btn btn-app">
-            <span class="badge bg-aqua">{{ count($productCategory->getImmediateDescendants()) }}</span>
-            <i class="ion ion-pricetag" aria-hidden="true"></i> {{ $productCategory->name }}
-        </a>
-    @endforeach
+                @if(isset($currentParentNode))
+                    @if($currentParentNode->parent_id == null)
+                        <a href="{{ route('complaint_product', [$masterProduct->id, 0]) }}" class="btn btn-link btn-lg">
+                            <i class="fa fa-arrow-circle-up"></i> Up One Level
+                        </a> <br>
+                    @else
+                        <a href="{{ route('complaint_product', [$masterProduct->id, $currentParentNode->parent_id]) }}" class="btn btn-link btn-lg">
+                            <i class="fa fa-arrow-circle-up"></i> Up One Level
+                        </a> <br>
+                    @endif
+                @endif
+
+                @foreach($productCategories as $productCategory)
+                    @if(count($productCategory->getImmediateDescendants()) > 0)
+                        <a href="{{ route('complaint_product', [$masterProduct->id, $productCategory->id]) }}" class="btn btn-app">
+                            <span class="badge bg-aqua">{{ count($productCategory->getImmediateDescendants()) }}</span>
+                            <i class="ion ion-pricetag" aria-hidden="true"></i> {{ $productCategory->name }}
+                        </a>
+                    @elseif(count($productCategory->getImmediateDescendants()) == 0)
+                        <button class="btn btn-app active"
+                                data-node_id="{{ $productCategory->id }}"
+                                data-product_id="{{ $masterProduct->id }}"
+                                data-title="{{ $productCategory->name }}"
+                                v-on:click="append('{{ $productCategory->name }}', '{{ $masterProduct->id }}', '{{ $productCategory->id }}')">
+                            <i class="ion ion-pricetag" aria-hidden="true"></i> {{ $productCategory->name }}
+                        </button>
+                    @endif
+                @endforeach
+            </div>
+        </transition>
+
+        @include('layouts.errors.error_list')
+
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <transition name="fadeDown">
+                    <div class="panel panel-danger" id="panel_add_complaint" v-if="!show">
+                        <div class="panel-heading">
+                            <h4>Add Complaint</h4>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <span v-html="nodeTitle"></span>
+                            </div>
+                            {{ Form::open(['action' => 'Complaint\ComplaintProductController@addComplaintProduct', 'id' => 'form_add_complaint_product']) }}
+                            <div v-html="masterProductId"></div>
+                            <div v-html="productCategoryId"></div>
+                            {{ Form::hidden('tenant_id', Auth::user()->tenant_id) }}
+                            @include('layouts.complaint_product.complaint_product_form')
+                            {{ Form::close() }}
+                        </div>
+                    </div>
+                </transition>
+            </div>
+        </div>
+    </div>
 
     {{--<button class="btn btn-danger btn-flat" onclick="setComplaintTarget(this)">--}}
         {{--Add Complaint <i class="ion ion-plus-circled"></i>--}}
@@ -70,92 +121,4 @@
 
     {{--<div id="complaint_product_tree" class="fancytree-colorize-hover fancytree-fade-expander"></div>--}}
 
-    <h3>Complaint List</h3>
-
-    <table class="table table-striped" id="table_complaint_product" style="width: 100%">
-        <thead>
-            <tr>
-                <th>No.</th>
-                <th>Customer Name</th>
-                <th>Category</th>
-                <th>Complaint content</th>
-                <th>Need Call ?</th>
-                <th>Is Urgent ?</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @php $counter = 1; @endphp
-            @foreach($complaintProducts as $complaintProduct)
-                <tr>
-                    <td>{{ $counter }}</td>
-                    <td>
-                        <a>
-                            @if($complaintProduct->customer_id != null)
-                                {{ $complaintProduct->customer->name }}
-                            @else
-                                Anonymous
-                            @endif
-                        </a>
-                    </td>
-                    <td>{{ $complaintProduct->product_category->name }}</td>
-                    <td>{{ $complaintProduct->customer_complaint }}</td>
-                    <td>{!! $complaintProduct->is_need_call == 1 ? '<span class="text-red">yes</span>':'<span class="blue-text">no</span>' !!}</td>
-                    <td>{!! $complaintProduct->is_urgent == 1 ? '<span class="text-red">yes</span>':'<span class="blue-text">no</span>' !!}</td>
-                    <td>
-                        <a href="{{ route('edit_complaint_product', $complaintProduct->id) }}" class="btn btn-warning">
-                            <i class="ion ion-edit"></i>
-                        </a>
-                        <button class="btn btn-danger" data-id="{{ $complaintProduct->id }}" onclick="deleteComplaintProduct(this)">
-                            <i class="ion ion-ios-trash"></i>
-                        </button>
-                    </td>
-                </tr>
-                @php $counter++; @endphp
-            @endforeach
-        </tbody>
-    </table>
-
-    <!-- Modal Add Complaint -->
-    <div class="modal fade" id="modal_add_complaint_product" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-danger" id="myModalLabel">Add Complaint</h4>
-                </div>
-                {{ Form::open(['action' => 'Complaint\ComplaintProductController@addComplaintProduct', 'id' => 'form_add_complaint_product']) }}
-                <div class="modal-body">
-                    <h4>Add complaint to : <span id="product_category_name" class="text-blue"></span> </h4>
-                    @include('layouts.complaint_product.complaint_product_form')
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Add Complaint</button>
-                </div>
-                {{ Form::close() }}
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal Remove Complaint -->
-    <div class="modal fade" id="modal_remove_complaint" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-danger" id="myModalLabel">Add Complaint</h4>
-                </div>
-                {{ Form::open(['action' => 'Complaint\ComplaintProductController@deleteComplaintProduct', 'id' => 'form_delete_complaint']) }}
-                <div class="modal-body">
-                    Are you sure want to delete this complaint ?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-danger">Remove Complaint</button>
-                </div>
-                {{ Form::close() }}
-            </div>
-        </div>
-    </div>
 @endsection

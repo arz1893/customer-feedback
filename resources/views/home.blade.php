@@ -76,6 +76,19 @@
                 </li>
                 <li class="treeview">
                     <a href="#">
+                        <i class="ion ion-clipboard"></i> <span>List</span>
+                        <span class="pull-right-container">
+                          <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+
+                    <ul class="treeview-menu">
+                        <li><a href="{{ route('complaint_list.index') }}"><i class="ion ion-ios-list-outline"></i> List of Complaints</a></li>
+                        <li><a href="#!"><i class="ion ion-ios-list-outline"></i> List of Suggestions</a></li>
+                    </ul>
+                </li>
+                <li class="treeview">
+                    <a href="#">
                         <i class="ion ion-soup-can"></i> <span>Master Data</span>
                         <span class="pull-right-container">
                           <i class="fa fa-angle-left pull-right"></i>

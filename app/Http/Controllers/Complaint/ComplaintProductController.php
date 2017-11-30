@@ -13,31 +13,19 @@ use Illuminate\Support\Facades\Validator;
 
 class ComplaintProductController extends Controller
 {
-    public function complaintProduct($id, $parentId) {
-        $masterProduct = MasterProduct::findOrFail($id);
-        if($parentId == 0) {
+    public function complaintProduct($id, $currentNodeId) {
+        if($currentNodeId == 0) {
+            $masterProduct = MasterProduct::findOrFail($id);
             $productCategories = ProductCategory::where('master_product_id', $masterProduct->id)->where('parent_id', null)->get();
             $selectCustomers = Customer::where('tenant_id', Auth::user()->tenant_id)->pluck('name', 'id');
-            $complaintProducts = ComplaintProduct::where('master_product_id', $masterProduct->id)->get();
             return view('complaint.product.complaint_product', compact('masterProduct', 'productCategories', 'selectCustomers', 'complaintProducts'));
-        }
-
-        $productCategories = ProductCategory::where('parent_id', $parentId)->get();
-
-        $currentLevel = ProductCategory::findOrFail($parentId);
-        if($currentLevel->parent_id == null) {
-            $previousLevelId = 0;
-            $masterProductId = $currentLevel->master_product_id;
-            $selectCustomers = Customer::where('tenant_id', Auth::user()->tenant_id)->pluck('name', 'id');
-            $complaintProducts = ComplaintProduct::where('master_product_id', $masterProduct->id)->get();
-            return view('complaint.product.complaint_product', compact('masterProduct', 'productCategories', 'previousLevelId', 'masterProductId', 'selectCustomers', 'complaintProducts'));
         } else {
-            $previousLevelId = $currentLevel->parent_id;
+            $masterProduct = MasterProduct::findOrFail($id);
+            $productCategories = ProductCategory::where('parent_id', $currentNodeId)->get();
+            $currentParentNode = ProductCategory::findOrFail($currentNodeId);
             $selectCustomers = Customer::where('tenant_id', Auth::user()->tenant_id)->pluck('name', 'id');
-            $complaintProducts = ComplaintProduct::where('master_product_id', $masterProduct->id)->get();
-            return view('complaint.product.complaint_product', compact('masterProduct', 'productCategories', 'previousLevelId', 'selectCustomers', 'complaintProducts'));
+            return view('complaint.product.complaint_product', compact('masterProduct', 'productCategories', 'currentParentNode', 'selectCustomers', 'complaintProducts'));
         }
-
     }
 
     public function addComplaintProduct(Request $request) {
@@ -54,7 +42,7 @@ class ComplaintProductController extends Controller
         }
 
         ComplaintProduct::create($request->all());
-        return redirect()->back()->with('status', 'New complaint has been added');
+        return redirect()->back()->with('status', 'New complaint has been added, please check your complaint list');
     }
 
     public function editComplaintProduct(Request $request, $id) {

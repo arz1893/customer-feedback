@@ -16,7 +16,8 @@ class ComplaintProduct extends Model
         'tenant_id',
         'customer_id',
         'master_product_id',
-        'product_category_id'
+        'product_category_id',
+        'tenant_id'
     ];
 
     public function tenant() {

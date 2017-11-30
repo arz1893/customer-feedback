@@ -267,7 +267,7 @@
     <!-- AdminLTE App -->
     <script src="{{ asset('js/admin-lte/adminlte.min.js') }}" type="text/javascript"></script>
     <!-- Vue JS -->
-    <script src="{{ asset('js/vue/vue.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/vue/vue.js') }}" type="text/javascript"></script>
     <!-- Data Table -->
     <script src="{{ asset('js/datatables/datatables.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
