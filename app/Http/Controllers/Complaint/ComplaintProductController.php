@@ -56,7 +56,7 @@ class ComplaintProductController extends Controller
     public function updateComplaintProduct(Request $request, $id) {
         $complaintProduct = ComplaintProduct::findOrFail($id);
         $complaintProduct->update($request->all());
-        return redirect()->route('complaint_product', $complaintProduct->master_product_id)->with('status', 'Complaint has been updated');
+        return redirect()->route('complaint_list_product.index')->with('status', 'Complaint has been updated');
     }
 
     public function deleteComplaintProduct(Request $request) {
@@ -64,4 +64,5 @@ class ComplaintProductController extends Controller
         $complaintProduct->delete();
         return redirect()->back()->with('status', 'Complaint has been deleted');
     }
+
 }

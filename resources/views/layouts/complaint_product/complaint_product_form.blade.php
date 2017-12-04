@@ -1,6 +1,13 @@
 <div class="form-group">
     {{ Form::label('customer_id', 'Customer') }}
-    {{ Form::select('customer_id', $selectCustomers, null, ['class' => 'form-control', 'placeholder' => 'Anonymous']) }}
+    <div class="input-group input-group-md">
+        {{ Form::select('customer_id', $selectCustomers, null, ['class' => 'form-control', 'placeholder' => 'Anonymous']) }}
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-info btn-flat" id="btn_add_customer" data-toggle="modal" data-target="#modal_add_customer">
+              Customer <i class="fa fa-plus-circle"></i>
+          </button>
+        </span>
+    </div>
 </div>
 
 <div class="form-group">
@@ -51,7 +58,7 @@
 <div class="row">
     <div class="col-lg-6">
         <button type="submit" class="btn btn-danger">
-            Add Complaint
+            {{ $submitButtonText }}
         </button>
     </div>
 </div>

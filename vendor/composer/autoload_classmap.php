@@ -22,6 +22,7 @@ return array(
     'App\\Http\\Controllers\\Auth\\UserController' => $baseDir . '/app/Http/Controllers/Auth/UserController.php',
     'App\\Http\\Controllers\\Complaint\\ComplaintController' => $baseDir . '/app/Http/Controllers/Complaint/ComplaintController.php',
     'App\\Http\\Controllers\\Complaint\\ComplaintListProductController' => $baseDir . '/app/Http/Controllers/Complaint/ComplaintListProductController.php',
+    'App\\Http\\Controllers\\Complaint\\ComplaintListServiceController' => $baseDir . '/app/Http/Controllers/Complaint/ComplaintListServiceController.php',
     'App\\Http\\Controllers\\Complaint\\ComplaintProductController' => $baseDir . '/app/Http/Controllers/Complaint/ComplaintProductController.php',
     'App\\Http\\Controllers\\Complaint\\ComplaintServiceController' => $baseDir . '/app/Http/Controllers/Complaint/ComplaintServiceController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',

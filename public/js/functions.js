@@ -81,6 +81,15 @@ function deleteComplaintProduct(selected) {
         type: 'hidden',
         name: 'complaint_id',
         value: $(selected).data('id')
-    }).appendTo('#form_delete_complaint');
+    }).appendTo('#form_delete_complaint_product');
+    $('#modal_remove_complaint').modal('show');
+}
+
+function deleteComplaintService(selected) {
+    $('<input>').attr({
+        type: 'hidden',
+        name: 'complaint_id',
+        value: $(selected).data('id')
+    }).appendTo('#form_delete_complaint_service');
     $('#modal_remove_complaint').modal('show');
 }

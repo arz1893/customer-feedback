@@ -43,7 +43,7 @@
     <div id="vue_complaint_product_container">
 
         <transition name="fadeDown">
-            <a href="#!" class="btn btn-link btn-lg" id="btn_show_category_navigator" v-on:click="showNavigator()" v-if="!show">
+            <a href="#!" class="btn btn-link btn-lg hidden" id="btn_show_category_navigator" v-on:click="showNavigator()">
                 <i class="fa fa-arrow-circle-left"></i> Back
             </a>
         </transition>
@@ -88,7 +88,7 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2">
                 <transition name="fadeDown">
-                    <div class="panel panel-danger" id="panel_add_complaint" v-if="!show">
+                    <div class="panel panel-danger hidden" id="panel_add_complaint">
                         <div class="panel-heading">
                             <h4>Add Complaint</h4>
                         </div>
@@ -97,16 +97,17 @@
                                 <span v-html="nodeTitle"></span>
                             </div>
                             {{ Form::open(['action' => 'Complaint\ComplaintProductController@addComplaintProduct', 'id' => 'form_add_complaint_product']) }}
-                            <div v-html="masterProductId"></div>
-                            <div v-html="productCategoryId"></div>
-                            {{ Form::hidden('tenant_id', Auth::user()->tenant_id) }}
-                            @include('layouts.complaint_product.complaint_product_form')
+                                <div v-html="masterProductId"></div>
+                                <div v-html="productCategoryId"></div>
+                                {{ Form::hidden('tenant_id', Auth::user()->tenant_id) }}
+                                @include('layouts.complaint_product.complaint_product_form', ['submitButtonText' => 'Add Complaint'])
                             {{ Form::close() }}
                         </div>
                     </div>
                 </transition>
             </div>
         </div>
+
     </div>
 
     {{--<button class="btn btn-danger btn-flat" onclick="setComplaintTarget(this)">--}}

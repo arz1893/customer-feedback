@@ -10,6 +10,14 @@
 @section('main-content')
     <h3 class="text-red">Complaint Product List</h3>
 
+    @if(\Session::has('status'))
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+            <h4><i class="icon fa fa-check"></i> Success!</h4>
+            {{ \Session::get('status') }}
+        </div>
+    @endif
+
     <table class="table table-striped" id="table_complaint_product" style="width: 100%">
         <thead>
         <tr>
@@ -43,7 +51,7 @@
                 <td>{!! $complaintProduct->is_need_call == 1 ? '<span class="text-red">yes</span>':'<span class="blue-text">no</span>' !!}</td>
                 <td>{!! $complaintProduct->is_urgent == 1 ? '<span class="text-red">yes</span>':'<span class="blue-text">no</span>' !!}</td>
                 <td>
-                    <a href="#!" class="btn btn-warning">
+                    <a href="{{ route('edit_complaint_product', $complaintProduct) }}" class="btn btn-warning">
                         <i class="ion ion-edit"></i>
                     </a>
                     <button class="btn btn-danger" data-id="{{ $complaintProduct->id }}" onclick="deleteComplaintProduct(this)">
@@ -65,6 +73,7 @@
                     <h4 class="modal-title text-danger" id="myModalLabel">Add Complaint</h4>
                 </div>
                 {{ Form::open(['action' => 'Complaint\ComplaintProductController@deleteComplaintProduct', 'id' => 'form_delete_complaint_product']) }}
+
                 <div class="modal-body">
                     Are you sure want to delete this complaint ?
                 </div>

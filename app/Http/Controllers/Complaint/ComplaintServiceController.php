@@ -44,4 +44,24 @@ class ComplaintServiceController extends Controller
         ComplaintService::create($request->all());
         return redirect()->back()->with('status', 'New Complaint has been added, please check your complaint list');
     }
+
+    public function editComplaintService(Request $request, $id) {
+        $complaintService = ComplaintService::findOrFail($id);
+        $masterService = MasterService::findOrFail($complaintService->master_service_id);
+        $serviceCategory = ServiceCategory::findOrFail($complaintService->service_category_id);
+        $selectCustomers = Customer::where('tenant_id', Auth::user()->tenant_id)->pluck('name', 'id');
+        return view('complaint.service.edit_complaint_service', compact('complaintService','masterService', 'serviceCategory', 'selectCustomers'));
+    }
+
+    public function updateComplaintService(Request $request, $id) {
+        $complaintService = ComplaintService::findOrFail($id);
+        $complaintService->update($request->all());
+        return redirect()->route('complaint_list_service.index')->with('status', 'Complaint has been updated');
+    }
+
+    public function deleteComplaintService(Request $request) {
+        $complaintService = ComplaintService::findOrFail($request->complaint_id);
+        $complaintService->delete();
+        return redirect()->route('complaint_list_service.index')->with('status', 'Complaint has been deleted!');
+    }
 }
